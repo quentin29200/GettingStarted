@@ -1,11 +1,11 @@
 package org.opencompare;
 
 import org.opencompare.api.java.*;
-import org.opencompare.api.java.io.HTMLExporter;
+//import org.opencompare.api.java.io.HTMLExporter;
 import org.opencompare.api.java.value.*;
 
 
-public class HTMLExporterCustom extends HTMLExporter {
+public class HTMLExporterCustom {
     public HTMLExporterCustom() {
 
     }
@@ -25,6 +25,7 @@ public class HTMLExporterCustom extends HTMLExporter {
     public void visit(PCM pcm) {
 
     }
+    /*test 02*/
 
     public void visit(Feature feature) {
 
@@ -42,7 +43,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
-    @Override
+
     public void visit(BooleanValue booleanValue) {
 
     }

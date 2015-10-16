@@ -13,7 +13,7 @@ public class MyPCMPrinter implements PCMVisitor {
     private boolean test;
 
     /**
-     * Print some information contained in a PCM
+     * Print some information contained in a PCM = afficher la matrice
      * @param pcm: PCM to print
      */
     public void print(PCM pcm) {
