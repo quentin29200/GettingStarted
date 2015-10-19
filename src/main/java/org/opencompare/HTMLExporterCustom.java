@@ -1,20 +1,31 @@
 package org.opencompare;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.opencompare.api.java.*;
 import org.opencompare.api.java.io.HTMLExporter;
+import org.opencompare.api.java.util.PCMVisitor;
 import org.opencompare.api.java.value.*;
 
 
-public class HTMLExporterCustom extends HTMLExporter {
+public class HTMLExporterCustom implements PCMVisitor {
+    private Document doc;
+    private Element body;
+    Document.OutputSettings settings = new Document.OutputSettings();
+    private String templateFull = "<html>\n\t<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t</head>\n\t<body>\n\t</body>\n</html>";
+
+    public String toHTML(PCM pcm) {
+        this.doc = Jsoup.parse(this.templateFull);
+
+        return this.doc.outputSettings(this.settings).outerHtml();
+    }
+
     public HTMLExporterCustom() {
 
     }
 
     public String export(PCMContainer container) {
-        return null;
-    }
-
-    public String toHTML(PCM pcm) {
         return null;
     }
 
