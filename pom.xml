@@ -33,6 +33,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.projetloki</groupId>
+            <artifactId>genesis</artifactId>
+            <version>0.79</version>
+        </dependency>
+
+
     </dependencies>
 
 	<build>
