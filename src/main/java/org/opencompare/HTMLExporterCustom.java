@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class HTMLExporterCustom extends webExporter {
+public class HTMLExporterCustom extends WebExporter {
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
