@@ -5,15 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-/*
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;*/
+
 
 /**
  * Created by Quentin on 04/11/2015.
@@ -80,31 +73,6 @@ public class Param {
             }
             reader.endObject();
             reader.close();
-
-            // Lecture du JSON dans un objet JSON
-           // JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-
-            /* Instanciation de l'objet param */
-
-            // Récupération des paramètres de couleur selon les valeurs
-            /*JsonArray dataColorArray = (JsonArray) jsonObject.get("dataColor");
-            for (int i = 0; i < dataColorArray.size(); ++i) {
-                JSONObject dataColorObject = (JSONObject) dataColorArray.get(i);
-                this.dataColor.put("values",dataColorObject.get("value").getAsString());
-                this.dataColor.put("bgcolor",dataColorObject.get("bgcolor").toString());
-                this.dataColor.put("txtcolor",dataColorObject.get("txtcolor").toString());
-            }
-
-            // Récupération des paramètres de tri sur colonne
-            JSONObject order = (JSONObject) jsonObject.get("order");
-            this.orderType = order.get("type").toString();
-            this.orderColumn = order.get("column").toString();
-
-            // Récupération des booléen
-            this.showBottomFeatures = (boolean) jsonObject.get("showBottomFeatures");
-            this.reversePCM = (boolean) jsonObject.get("reversePCM");
-            this.showPCMname = (boolean) jsonObject.get("showPCMname");*/
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
