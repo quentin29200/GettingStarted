@@ -11,9 +11,9 @@
         "values": "<0"
       }
     ],
-  "showBottomFeatures":"yes",
-  "reversePCM":"yes",
-  "showPCMname":"yes"
+  "showBottomFeatures":true,
+  "reversePCM":true,
+  "showPCMname":true
 }
 
 

@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 //changement pour commit 
-public class HTMLExporterCustom extends WebExporter {
+public class HTMLExporterCustom extends HTMLExporter {
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
@@ -40,7 +40,7 @@ public class HTMLExporterCustom extends WebExporter {
         this.metadata = container.getMetadata();
         return this.toHTML(container.getPcm());
     }
-
+/*
     public void visit(PCM pcm) {
         // Init html table
         this.body.appendElement("h1").text(pcm.getName());
@@ -91,7 +91,7 @@ public class HTMLExporterCustom extends WebExporter {
         }
 
     }
-
+*/
     public HTMLExporterCustom() {
     }
 
