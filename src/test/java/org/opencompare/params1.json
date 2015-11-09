@@ -1,11 +1,22 @@
 {
-  "dataColor":[
+  "dataStyle":[
       {
+        "name": "featurestyle",
+        "bgcolor": "#FF0000",
+        "txtcolor": "#FFFFFF"
+      },
+      {
+        "name": "col1style",
+        "width": 120
+      },
+      {
+        "name": "valuesstyle",
         "bgcolor": "#FFFFFFF",
         "txtcolor": "#000000",
         "values": ">0"
       },
       {
+        "name": "valuesstyle",
         "bgcolor": "#CCCCCC",
         "txtcolor": "#FFFFFF",
         "values": "<0"
