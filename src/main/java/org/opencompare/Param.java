@@ -18,7 +18,7 @@ public class Param {
     private Collection<DataStyle> dataStyleParam;
     private String orderType;
     private String orderColumn;
-    private boolean showBottomFeatures;
+    private boolean showBottomNameFeatures;
     private boolean reversePCM;
     private boolean showPCMname;
 
@@ -40,8 +40,8 @@ public class Param {
                     this.orderType = reader.nextString();
                 } else if (paramname.equals("orderColumn")) {
                     this.orderColumn = reader.nextString();
-                }  else if (paramname.equals("showBottomFeatures")) {
-                    this.showBottomFeatures = reader.nextBoolean();
+                }  else if (paramname.equals("showBottomNameFeatures")) {
+                    this.showBottomNameFeatures = reader.nextBoolean();
                 }  else if (paramname.equals("reversePCM")) {
                     this.reversePCM = reader.nextBoolean();
                 } else if (paramname.equals("showPCMname")) {
@@ -53,7 +53,10 @@ public class Param {
                         String name = "";
                         String bgcolor = "";
                         String txtcolor = "";
-                        String values = "";
+                        int value = 0;
+                        int borneinf = 0;
+                        int bornesup = 0;
+
                         reader.beginObject();
                         int width = 0;
                         while (reader.hasNext()) {
@@ -64,15 +67,19 @@ public class Param {
                                bgcolor = reader.nextString();
                             } else if (paramcolorname.equals("txtcolor")) {
                                txtcolor = reader.nextString();
-                            } else if (paramcolorname.equals("values")) {
-                               values = reader.nextString();
+                            } else if (paramcolorname.equals("value")) {
+                               value = reader.nextInt();
+                            } else if (paramcolorname.equals("borneinf")) {
+                               borneinf = reader.nextInt();
+                            } else if (paramcolorname.equals("bornesup")) {
+                               bornesup = reader.nextInt();
                             } else if (paramcolorname.equals("width")) {
                                width = reader.nextInt();
                             } else {
                                 reader.skipValue();
                             }
                         }
-                        DataStyle dataStyle = new DataStyle(name, bgcolor, txtcolor, values, width);
+                        DataStyle dataStyle = new DataStyle(name, bgcolor, txtcolor, value, borneinf, bornesup, width);
                         this.dataStyleParam.add(dataStyle);
                         reader.endObject();
                     }
@@ -102,8 +109,8 @@ public class Param {
         return orderColumn;
     }
 
-    public boolean isShowBottomFeatures() {
-        return showBottomFeatures;
+    public boolean isShowBottomNameFeatures() {
+        return showBottomNameFeatures;
     }
 
     public boolean isReversePCM() {
@@ -124,7 +131,7 @@ public class Param {
         System.out.println(p.getOrderColumn());
         System.out.println(p.getOrderType());
         System.out.println(p.isReversePCM());
-        System.out.println(p.isShowBottomFeatures());
+        System.out.println(p.isShowBottomNameFeatures());
         System.out.println(p.isShowPCMname());
     }
 }

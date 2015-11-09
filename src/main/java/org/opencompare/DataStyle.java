@@ -7,68 +7,62 @@ public class DataStyle {
     private String name;
     private String bgcolor;
     private String txtcolor;
-    private String values;
+    private int value;
+    private int borneinf;
+    private int bornesup;
     private int width;
 
     // Constructor
-    public DataStyle(String name, String bgcolor, String txtcolor, String values, int width) {
+    public DataStyle(String name, String bgcolor, String txtcolor, int value, int borneinf, int bornesup, int width) {
         this.name = name;
         this.bgcolor = bgcolor;
         this.txtcolor = txtcolor;
-        this.values = values;
+        this.value = value;
+        this.borneinf = borneinf;
+        this.bornesup = bornesup;
         this.width = width;
     }
 
-    // Getter and Setter
-    public String getValues() {
-        return values;
-    }
 
-    public void setValues(String values) {
-        this.values = values;
-    }
-
+    // Getter
     public String getName() {
         return name;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getBgcolor() {
         return bgcolor;
     }
 
-    public void setBgcolor(String bgcolor) {
-        this.bgcolor = bgcolor;
-    }
-
     public String getTxtcolor() {
         return txtcolor;
     }
 
-    public void setTxtcolor(String txtcolor) {
-        this.txtcolor = txtcolor;
+    public int getValue() {
+        return value;
     }
 
+    public int getBorneinf() {
+        return borneinf;
+    }
+
+    public int getBornesup() {
+        return bornesup;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    // Pour les tests
     public String toString() {
         return "DataStyle{" +
                 "name='" + name + '\'' +
                 ", bgcolor='" + bgcolor + '\'' +
                 ", txtcolor='" + txtcolor + '\'' +
-                ", values='" + values + '\'' +
+                ", value=" + value +
+                ", borneinf=" + borneinf +
+                ", bornesup=" + bornesup +
                 ", width=" + width +
                 '}';
     }
-
-
 }

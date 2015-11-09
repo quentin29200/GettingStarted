@@ -10,21 +10,29 @@
         "width": 120
       },
       {
-        "name": "valuesstyle",
+        "name": "rangeint2",
         "bgcolor": "#FFFFFFF",
         "txtcolor": "#000000",
-        "values": ">0"
+        "borneinf": 1,
+        "bornesup": 10
       },
       {
-        "name": "valuesstyle",
+        "name": "rangeout3",
         "bgcolor": "#CCCCCC",
         "txtcolor": "#FFFFFF",
-        "values": "<0"
+        "borneinf": 11,
+        "bornesup": 20
+      },
+      {
+        "name": "compare4",
+        "bgcolor": "#000000",
+        "txtcolor": "#FFFFFF",
+        "value": 0
       }
     ],
   "orderType":"asc",
   "orderColumn":"",
-  "showBottomFeatures":true,
+  "showBottomNameFeatures":true,
   "reversePCM":true,
   "showPCMname":true
 }
