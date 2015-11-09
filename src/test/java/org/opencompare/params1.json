@@ -1,0 +1,21 @@
+{
+  "dataColor":[
+      {
+        "bgcolor": "#FFFFFFF",
+        "txtcolor": "#000000",
+        "values": ">0"
+      },
+      {
+        "bgcolor": "#CCCCCC",
+        "txtcolor": "#FFFFFF",
+        "values": "<0"
+      }
+    ],
+  "orderType":"asc",
+  "orderColumn":"",
+  "showBottomFeatures":true,
+  "reversePCM":true,
+  "showPCMname":true
+}
+
+
