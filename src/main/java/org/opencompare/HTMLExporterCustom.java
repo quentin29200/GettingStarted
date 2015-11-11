@@ -4,19 +4,31 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.opencompare.api.java.*;
+import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
+import org.opencompare.api.java.io.PCMLoader;
 import org.opencompare.api.java.value.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
-//changement pour commit 
-public class HTMLExporterCustom extends HTMLExporter {
+
+public class HTMLExporterCustom {
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
     private Element tr;
+    private  Param parameter;
+
+    //modif par cheisda le 9.11.2015
+    public String generatedHtml;
+
+
+
+
 
     Document.OutputSettings settings = new Document.OutputSettings();
     private String templateFull = "<html>\n\t<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t</head>\n\t<body>\n\t</body>\n</html>";
@@ -38,9 +50,14 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     public String generateHTML(PCMContainer container) {
         this.metadata = container.getMetadata();
-        return this.toHTML(container.getPcm());
+        //return this.toHTML(container.getPcm());
+
+                //modif by cheisda 9.11.2015
+        generatedHtml = this.toHTML(container.getPcm());
+        return generatedHtml;
+
     }
-/*
+
     public void visit(PCM pcm) {
         // Init html table
         this.body.appendElement("h1").text(pcm.getName());
@@ -61,7 +78,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");
 
         Iterator var5;
-        while(!featuresToVisit.isEmpty()) {
+      /* while(!featuresToVisit.isEmpty()) {
             Collections.sort(featuresToVisit, new Comparator() {
                 public int compare(AbstractFeature feat1, AbstractFeature feat2) {
                     return HTMLExporter.this.metadata.getFeaturePosition(feat1) - HTMLExporter.this.metadata.getFeaturePosition(feat2);
@@ -80,20 +97,64 @@ public class HTMLExporterCustom extends HTMLExporter {
             if(this.featureDepth >= 1) {
                 this.tr = table.appendElement("tr");
             }
-        }
+        }*/
 
         var5 = pcm.getProducts().iterator();
 
-        while(var5.hasNext()) {
+       /*while(var5.hasNext()) {
             Product var7 = (Product)var5.next();
             this.tr = table.appendElement("tr");
             var7.accept(this);
-        }
+        }*/
 
     }
-*/
-    public HTMLExporterCustom() {
+
+    //11.11.2015
+    private Param parameters;
+
+    public Param getParameters() {
+        return parameters;
     }
+
+    public void setParameters(Param parameters) {
+        this.parameters = parameters;
+    }
+
+    //constructeur de la classe
+    public HTMLExporterCustom(String fileName) {
+        Param param = new Param(fileName);
+        setParameters(param);
+    }
+
+
+
+    /* Main */
+    public static void main(String[] args) throws IOException {
+/*
+
+ */
+        // Load a PCM
+        File pcmFile = new File("pcms/example.pcm");
+        File paramFile = new File("json/param1.json");
+
+        // read the json file
+        PCMLoader loader = new KMFJSONLoader();
+        PCM pcm = loader.load(pcmFile).get(0).getPcm();
+
+        //displays the HTML File into the console
+        HTMLExporter testHtmlExporter = new HTMLExporter();
+        HTMLExporterCustom testHTML = new HTMLExporterCustom("json\\param1.json");
+        System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
+
+        //get the parameters
+        //Param testParam = new Param("param1.json");
+
+       // System.out.println("parametres OrderType" + testParam.getOrderType());
+
+
+    }//fin main
+
+
 
     public String export(PCMContainer container) {
         return null;
@@ -120,7 +181,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
-    @Override
+   // @Override
     public void visit(BooleanValue booleanValue) {
 
     }
@@ -172,4 +233,6 @@ public class HTMLExporterCustom extends HTMLExporter {
     public void visit(Version version) {
 
     }
+
+
 }
