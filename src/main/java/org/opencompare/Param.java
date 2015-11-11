@@ -3,19 +3,22 @@ package org.opencompare;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import com.google.gson.stream.JsonReader;
+
+import javax.xml.crypto.Data;
 
 
 /**
  * Created by Quentin on 04/11/2015.
  */
 public class Param {
-    private HashMap<String, String> dataColor;
+    private Collection<DataStyle> dataStyleParam;
     private String orderType;
     private String orderColumn;
-    private boolean showBottomFeatures;
+    private boolean showBottomNameFeatures;
     private boolean reversePCM;
     private boolean showPCMname;
 
@@ -23,12 +26,10 @@ public class Param {
 
     public Param(String json) {
         try {
-            this.dataColor = new HashMap<String, String>();
+            this.dataStyleParam = new ArrayList<DataStyle>();
             // Ouverture du JSON
             String path = folderPath+json;
             System.out.println(path);
-            //FileReader reader = new FileReader(path);
-            //JSONParser jsonParser = new JSONParser();
             JsonReader reader = new JsonReader(new FileReader(path));
 
             reader.beginObject();
@@ -39,31 +40,47 @@ public class Param {
                     this.orderType = reader.nextString();
                 } else if (paramname.equals("orderColumn")) {
                     this.orderColumn = reader.nextString();
-                }  else if (paramname.equals("showBottomFeatures")) {
-                    this.showBottomFeatures = reader.nextBoolean();
+                }  else if (paramname.equals("showBottomNameFeatures")) {
+                    this.showBottomNameFeatures = reader.nextBoolean();
                 }  else if (paramname.equals("reversePCM")) {
                     this.reversePCM = reader.nextBoolean();
                 } else if (paramname.equals("showPCMname")) {
                     this.showPCMname = reader.nextBoolean();
-                } else if (paramname.equals("dataColor")) {
+                } else if (paramname.equals("dataStyle")) {
                     // read array
                     reader.beginArray();
-                    int i = 1;
                     while (reader.hasNext()) {
+                        String name = "";
+                        String bgcolor = "";
+                        String txtcolor = "";
+                        int value = 0;
+                        int borneinf = 0;
+                        int bornesup = 0;
+
                         reader.beginObject();
+                        int width = 0;
                         while (reader.hasNext()) {
                             String paramcolorname = reader.nextName();
-                            if (paramcolorname.equals("bgcolor")) {
-                               this.dataColor.put(i+"bgcolor", reader.nextString());
+                            if (paramcolorname.equals("name")) {
+                                name = reader.nextString();
+                            } else if (paramcolorname.equals("bgcolor")) {
+                               bgcolor = reader.nextString();
                             } else if (paramcolorname.equals("txtcolor")) {
-                                this.dataColor.put(i+"txtcolor", reader.nextString());
-                            } else if (paramcolorname.equals("values")) {
-                                this.dataColor.put(i+"values", reader.nextString());
+                               txtcolor = reader.nextString();
+                            } else if (paramcolorname.equals("value")) {
+                               value = reader.nextInt();
+                            } else if (paramcolorname.equals("borneinf")) {
+                               borneinf = reader.nextInt();
+                            } else if (paramcolorname.equals("bornesup")) {
+                               bornesup = reader.nextInt();
+                            } else if (paramcolorname.equals("width")) {
+                               width = reader.nextInt();
                             } else {
                                 reader.skipValue();
                             }
                         }
-                        i++;
+                        DataStyle dataStyle = new DataStyle(name, bgcolor, txtcolor, value, borneinf, bornesup, width);
+                        this.dataStyleParam.add(dataStyle);
                         reader.endObject();
                     }
                     reader.endArray();
@@ -80,15 +97,8 @@ public class Param {
         }
     }
 
-    public static void main (String [] arg){
-        //test
-        Param p = new Param("params1.json");
-        System.out.println(p.getDataColor());
-        System.out.println(p.getOrderColumn());
-        System.out.println(p.getOrderType());
-        System.out.println(p.isReversePCM());
-        System.out.println(p.isShowBottomFeatures());
-        System.out.println(p.isShowPCMname());
+    public Collection<DataStyle> getDataStyleParam() {
+        return dataStyleParam;
     }
 
     public String getOrderType() {
@@ -99,12 +109,8 @@ public class Param {
         return orderColumn;
     }
 
-    public HashMap getDataColor() {
-        return dataColor;
-    }
-
-    public boolean isShowBottomFeatures() {
-        return showBottomFeatures;
+    public boolean isShowBottomNameFeatures() {
+        return showBottomNameFeatures;
     }
 
     public boolean isReversePCM() {
@@ -113,5 +119,19 @@ public class Param {
 
     public boolean isShowPCMname() {
         return showPCMname;
+    }
+
+
+    public static void main (String [] arg){
+        //test
+        Param p = new Param("params1.json");
+        Collection<DataStyle> col;
+        col = p.getDataStyleParam();
+        System.out.println(col);
+        System.out.println(p.getOrderColumn());
+        System.out.println(p.getOrderType());
+        System.out.println(p.isReversePCM());
+        System.out.println(p.isShowBottomNameFeatures());
+        System.out.println(p.isShowPCMname());
     }
 }

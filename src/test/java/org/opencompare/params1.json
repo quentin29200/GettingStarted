@@ -1,19 +1,38 @@
 {
-  "dataColor":[
+  "dataStyle":[
       {
-        "bgcolor": "#FFFFFFF",
-        "txtcolor": "#000000",
-        "values": ">0"
+        "name": "featurestyle",
+        "bgcolor": "#FF0000",
+        "txtcolor": "#FFFFFF"
       },
       {
+        "name": "col1style",
+        "width": 120
+      },
+      {
+        "name": "rangeint2",
+        "bgcolor": "#FFFFFFF",
+        "txtcolor": "#000000",
+        "borneinf": 1,
+        "bornesup": 10
+      },
+      {
+        "name": "rangeout3",
         "bgcolor": "#CCCCCC",
         "txtcolor": "#FFFFFF",
-        "values": "<0"
+        "borneinf": 11,
+        "bornesup": 20
+      },
+      {
+        "name": "compare4",
+        "bgcolor": "#000000",
+        "txtcolor": "#FFFFFF",
+        "value": 0
       }
     ],
   "orderType":"asc",
   "orderColumn":"",
-  "showBottomFeatures":true,
+  "showBottomNameFeatures":true,
   "reversePCM":true,
   "showPCMname":true
 }
