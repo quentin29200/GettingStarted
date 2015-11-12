@@ -11,7 +11,7 @@
       },
       {
         "name": "rangeint2",
-        "bgcolor": "#FFFFFFF",
+        "bgcolor": "#FFFFFF",
         "txtcolor": "#000000",
         "borneinf": 1,
         "bornesup": 10
