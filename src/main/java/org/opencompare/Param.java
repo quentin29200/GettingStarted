@@ -1,8 +1,8 @@
 package org.opencompare;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,16 +22,10 @@ public class Param {
     private boolean reversePCM;
     private boolean showPCMname;
 
-    private static final String folderPath = "C:\\Users\\Cheisda\\Documents\\M1 MIAGE\\PDL2\\GettingStarted\\src\\test\\java\\org\\opencompare\\";
-    //To do : changer le folder path
-
     public Param(String json) {
         try {
             this.dataStyleParam = new ArrayList<DataStyle>();
-            // Ouverture du JSON
-            String path = folderPath+json;
-            System.out.println(path);
-            JsonReader reader = new JsonReader(new FileReader(path));
+            JsonReader reader = new JsonReader(new FileReader("pcms\\PCM1\\params1.json"));
 
             reader.beginObject();
 
