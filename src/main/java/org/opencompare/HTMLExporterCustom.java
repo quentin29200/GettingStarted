@@ -11,8 +11,6 @@ import org.opencompare.api.java.value.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -78,7 +76,7 @@ public class HTMLExporterCustom {
         this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");
 
         Iterator var5;
-      /* while(!featuresToVisit.isEmpty()) {
+     /* while(!featuresToVisit.isEmpty()) {
             Collections.sort(featuresToVisit, new Comparator() {
                 public int compare(AbstractFeature feat1, AbstractFeature feat2) {
                     return HTMLExporter.this.metadata.getFeaturePosition(feat1) - HTMLExporter.this.metadata.getFeaturePosition(feat2);
@@ -97,7 +95,7 @@ public class HTMLExporterCustom {
             if(this.featureDepth >= 1) {
                 this.tr = table.appendElement("tr");
             }
-        }*/
+        }
 
         var5 = pcm.getProducts().iterator();
 
@@ -143,13 +141,15 @@ public class HTMLExporterCustom {
 
         //displays the HTML File into the console
         HTMLExporter testHtmlExporter = new HTMLExporter();
-        HTMLExporterCustom testHTML = new HTMLExporterCustom("json\\param1.json");
-        System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
+        HTMLExporterCustom testHTML = new HTMLExporterCustom("params1.json");
+        //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
+        System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
+        
+        //Il faut parcourir les dataStyle (il possède un attibut "name")
+        System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
 
-        //get the parameters
-        //Param testParam = new Param("param1.json");
 
-       // System.out.println("parametres OrderType" + testParam.getOrderType());
+
 
 
     }//fin main
