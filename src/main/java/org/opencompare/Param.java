@@ -22,7 +22,8 @@ public class Param {
     private boolean reversePCM;
     private boolean showPCMname;
 
-    private static final String folderPath = "D:\\MIAGE\\PDL\\GettingStarted\\src\\test\\java\\org\\opencompare\\";
+    private static final String folderPath = "C:\\Users\\Cheisda\\Documents\\M1 MIAGE\\PDL2\\GettingStarted\\src\\test\\java\\org\\opencompare\\";
+    //To do : changer le folder path
 
     public Param(String json) {
         try {
