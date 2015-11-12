@@ -40,6 +40,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         this.metadata = container.getMetadata();
         return this.toHTML(container.getPcm());
     }
+
 /*
     public void visit(PCM pcm) {
         // Init html table
@@ -103,6 +104,14 @@ public class HTMLExporterCustom extends HTMLExporter {
         return null;
     }
 
+
+    private boolean rangeIn(int borneinf, int bornesup, int valuePCM) {
+        return ((valuePCM >= borneinf) && (valuePCM <= bornesup));
+    }
+
+    private boolean rangeOut(int borneinf, int bornesup, int valuePCM) {
+        return ((valuePCM <= borneinf) || (valuePCM >= bornesup));
+    }
 
     public void visit(Feature feature) {
 
