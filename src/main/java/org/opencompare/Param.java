@@ -21,7 +21,6 @@ public class Param {
     private boolean showBottomNameFeatures;
     private boolean reversePCM;
     private boolean showPCMname;
-
     public Param(String json) {
         try {
             this.dataStyleParam = new ArrayList<DataStyle>();
