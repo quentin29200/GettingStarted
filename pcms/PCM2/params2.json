@@ -1,0 +1,33 @@
+{
+  "dataStyle":[
+    {
+      "name": "Languagestyle",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    },
+    {
+      "name": "Comments/otherinfostyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A"
+    },
+    {
+      "name": "Licencestyle",
+      "bgcolor": "#3B240B",
+      "txtcolor": "#01DF74"
+    },
+    {
+      "name": "Outputstyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A"
+    },
+    {
+      "name": "Feature2style",
+      "width": 120
+    }
+  ],
+  "orderType":"asc",
+  "orderColumn":"Language",
+  "showBottomNameFeatures":false,
+  "reversePCM":false,
+  "showPCMname":false
+}

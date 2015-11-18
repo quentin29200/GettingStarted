@@ -1,33 +1,50 @@
 {
   "dataStyle":[
-      {
-        "name": "featurestyle",
-        "bgcolor": "#FF0000",
-        "txtcolor": "#FFFFFF"
-      },
-      {
-        "name": "col1style",
-        "width": 120
-      },
-      {
-        "name": "rangein2",
-        "bgcolor": "#FFFFFF",
-        "txtcolor": "#000000",
-        "borneinf": 1,
-        "bornesup": 10
-      },
-      {
-        "name": "compare4",
-        "bgcolor": "#000000",
-        "txtcolor": "#FFFFFF",
-        "value": 0
-      }
-    ],
+    {
+      "name": "Prixstyle",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    },
+    {
+      "name": "modèlestyle",
+      "bgcolor": "#3B240B",
+      "txtcolor": "#01DF74"
+    },
+    {
+      "name": "rangein1",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 0,
+      "bornesup": 200
+    },
+    {
+      "name": "rangein2",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 201,
+      "bornesup": 500
+    },
+    {
+      "name": "rangein3",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 501,
+      "bornesup": 1000
+    },
+    {
+      "name": "compare1",
+      "bgcolor": "#FF0000",
+      "txtcolor": "#CCCCCC",
+      "value": 200
+    },
+    {
+      "name": "Productstyle",
+      "width": 120
+    }
+  ],
   "orderType":"asc",
   "orderColumn":"",
-  "showBottomNameFeatures":true,
+  "showBottomNameFeatures":false,
   "reversePCM":false,
-  "showPCMname":true
+  "showPCMname":false
 }
-
-
