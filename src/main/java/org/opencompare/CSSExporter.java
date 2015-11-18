@@ -83,7 +83,7 @@ public class CSSExporter {
         }
         this.setGenesis(build.build());
 
-        File file = new File("src\\test\\java\\org\\opencompare\\style.css");
+        File file = new File("src\\style.css");
         try {
             this.getGenesis().writeCssFile(file);
         } catch (IOException e) {

@@ -21,7 +21,6 @@ public class Param {
     private boolean showBottomNameFeatures;
     private boolean reversePCM;
     private boolean showPCMname;
-    private static final String folderPath = "C:\\Users\\Rom\\.babun\\cygwin\\home\\Rom\\babunProject\\GettingStarted\\src\\test\\java\\org\\opencompare\\";
     public Param(String json) {
         try {
             this.dataStyleParam = new ArrayList<DataStyle>();
