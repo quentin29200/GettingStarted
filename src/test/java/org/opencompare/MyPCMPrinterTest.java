@@ -19,6 +19,12 @@ public class MyPCMPrinterTest {
 
     @Test
     public  void testMyPCMPrinter() throws IOException {
+        // Load Params
+        Param p = new Param("PCM1\\params1.json");
+
+        // Load PCM
+
+
             // Load a PCM
             File pcmFile = new File("pcms/example.pcm");
             File paramFile = new File("json/param1.json");
