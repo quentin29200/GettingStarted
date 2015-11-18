@@ -12,6 +12,10 @@ import org.opencompare.api.java.value.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class HTMLExporterCustom extends HTMLExporter {
     private Document doc;
@@ -54,6 +58,29 @@ public class HTMLExporterCustom extends HTMLExporter {
         return generatedHtml;
 
     }
+
+
+   /*   EXEMPLE DE PARCOUR DU PRODUCT (LIGNE)
+
+        var5 = pcm.getProducts().iterator(); // ON RECUPERE LES PRODUCTS
+
+        while(var5.hasNext()) {
+            Product var7 = (Product)var5.next(); // POUR CHAQUE PRODUCT
+            // AFFICHE LE NOM DU PRODUCT (BALISE TH)
+
+            Iterator var8 = var7.getCells().iterator();// ON PARCOURS LES CELLULES DE PRODUCT (DE LA LIGNE)
+            while(var8.hasNext()) {
+                Cell date = (Cell)var8.next() // ON RECUPERE LA CELLULE
+                // TROUVER DANS LA CLASSE CELL LA FONCTION POUR RECUPERER LA VALUE
+
+                table.appendElement("td").addClass("patate");// OUVRE LA LIGNE DU TABLEAU
+                // AFFICHER LA VALUE ET VERIFIER RANGE IN ET RANGE OUT (OBJET PARAM)
+              }
+        }
+
+    }
+    */
+
 
     public void visit(PCM pcm) {
         // Init html table
