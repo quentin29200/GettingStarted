@@ -1,0 +1,13 @@
+{
+  "dataStyle":[
+    {
+      "name": "Feature2style",
+      "width": 60
+    }
+  ],
+  "orderType":"desc",
+  "orderColumn":"Feature 2",
+  "showBottomNameFeatures":true,
+  "reversePCM":true,
+  "showPCMname":false
+}

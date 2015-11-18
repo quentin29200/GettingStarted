@@ -1,0 +1,14 @@
+{
+  "dataStyle":[
+    {
+      "name": "Feature1style",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    }
+  ],
+  "orderType":"desc",
+  "orderColumn":"Product",
+  "showBottomNameFeatures":true,
+  "reversePCM":false,
+  "showPCMname":true
+}

@@ -1,27 +1,27 @@
 {
   "dataStyle":[
     {
-      "name": "featurestyle",
-      "bgcolor": "#FF0000",
-      "txtcolor": "#FFFFFF"
+      "name": "rangein1",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 0,
+      "bornesup": 200
     },
     {
-      "name": "col1style",
-      "width": 120
+      "name": "rangein2",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 201,
+      "bornesup": 500
     },
     {
-      "name": "rangeout3",
-      "bgcolor": "#CCCCCC",
-      "txtcolor": "#FFFFFF",
-      "borneinf": 11,
-      "bornesup": 20
+      "name": "Productstyle",
+      "width": 250
     }
   ],
-  "orderType":"desc",
-  "orderColumn":"col1",
+  "orderType":"asc",
+  "orderColumn":"Prix",
   "showBottomNameFeatures":true,
   "reversePCM":true,
   "showPCMname":true
 }
-
-

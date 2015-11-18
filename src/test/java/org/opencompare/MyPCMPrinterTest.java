@@ -20,7 +20,7 @@ public class MyPCMPrinterTest {
     @Test
     public  void testMyPCMPrinter() throws IOException {
             // Load a PCM
-            File pcmFile = new File("pcms/example.pcm");
+            File pcmFile = new File("pcms/tesssvtttt369852147.pcm");
             File paramFile = new File("json/param1.json");
             // read the json file
             PCMLoader loader = new KMFJSONLoader();

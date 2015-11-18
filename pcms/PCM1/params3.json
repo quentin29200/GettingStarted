@@ -1,22 +1,8 @@
 {
-  "dataStyle":[
-    {
-      "name": "col4style",
-      "width": 100
-    },
-    {
-      "name": "rangeout2",
-      "bgcolor": "#FFFFFF",
-      "txtcolor": "#CCCCCC",
-      "borneinf": 0,
-      "bornesup": 20
-    }
-  ],
-  "orderType":"asc",
-  "orderColumn":"",
-  "showBottomNameFeatures":true,
-  "reversePCM":false,
+  "dataStyle":[],
+  "orderType":"desc",
+  "orderColumn":"fiable?",
+  "showBottomNameFeatures":false,
+  "reversePCM":true,
   "showPCMname":true
 }
-
-
