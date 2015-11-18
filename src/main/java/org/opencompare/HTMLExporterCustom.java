@@ -11,12 +11,13 @@ import org.opencompare.api.java.value.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class HTMLExporterCustom {
+public class HTMLExporterCustom extends HTMLExporter {
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
@@ -36,7 +37,6 @@ public class HTMLExporterCustom {
     private int featureDepth;
 
     public String toHTML(PCM pcm) {
-
         this.settings.prettyPrint();
         this.doc = Jsoup.parse(this.templateFull);
         this.body = this.doc.body();
@@ -45,6 +45,7 @@ public class HTMLExporterCustom {
             this.metadata = new PCMMetadata(pcm);
         }
 
+        pcm.accept(this);
         return this.doc.outputSettings(this.settings).outerHtml();
     }
 
@@ -101,10 +102,15 @@ public class HTMLExporterCustom {
         this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");
 
         Iterator var5;
-     /* while(!featuresToVisit.isEmpty()) {
+        while(!featuresToVisit.isEmpty()) {
             Collections.sort(featuresToVisit, new Comparator() {
+                @Override
+                public int compare(Object o1, Object o2) {
+                    return 0;
+                }
+
                 public int compare(AbstractFeature feat1, AbstractFeature feat2) {
-                    return HTMLExporter.this.metadata.getFeaturePosition(feat1) - HTMLExporter.this.metadata.getFeaturePosition(feat2);
+                    return HTMLExporterCustom.this.metadata.getFeaturePosition(feat1) - HTMLExporterCustom.this.metadata.getFeaturePosition(feat2);
                 }
             });
             var5 = featuresToVisit.iterator();
@@ -124,11 +130,53 @@ public class HTMLExporterCustom {
 
         var5 = pcm.getProducts().iterator();
 
-       /*while(var5.hasNext()) {
+       while(var5.hasNext()) {
             Product var7 = (Product)var5.next();
             this.tr = table.appendElement("tr");
             var7.accept(this);
-        }*/
+        }
+
+    }
+
+    public void visit(Feature feature) {
+        Element th = this.tr.appendElement("th");
+        if(this.featureDepth > 1) {
+            th.attr("rowspan", Integer.toString(this.featureDepth));
+        }
+
+        th.text(feature.getName());
+    }
+
+    public void visit(FeatureGroup featureGroup) {
+        Element th = this.tr.appendElement("th");
+        if(!featureGroup.getFeatures().isEmpty()) {
+            th.attr("colspan", Integer.toString(featureGroup.getFeatures().size()));
+        }
+
+        th.text(featureGroup.getName());
+        this.nextFeaturesToVisit.addAll(featureGroup.getFeatures());
+    }
+
+    public void visit(Product product) {
+        this.tr.appendElement("th").text(product.getName());
+        List cells = product.getCells();
+        Collections.sort(cells, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+
+            public int compare(Cell cell1, Cell cell2) {
+                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+            }
+        });
+        Iterator var3 = cells.iterator();
+
+        while(var3.hasNext()) {
+            Cell cell = (Cell)var3.next();
+            Element td = this.tr.appendElement("td");
+            td.appendElement("span").text(cell.getContent());
+        }
 
     }
 
@@ -157,15 +205,19 @@ public class HTMLExporterCustom {
 
  */
         // Load a PCM
-        File pcmFile = new File("pcms/example.pcm");
-        File paramFile = new File("json/param1.json");
+        File pcmFile = new File("pcms/PCM1/example.pcm");
+        File paramFile = new File("pcms/PCM1/param1.json");
 
         // read the json file
         PCMLoader loader = new KMFJSONLoader();
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 
+        HTMLExporterCustom te = new HTMLExporterCustom("params1.json");
+        System.out.println(te.toHTML(pcm));
         //displays the HTML File into the console
-        HTMLExporter testHtmlExporter = new HTMLExporter();
+        /*HTMLExporter testHtmlExporter = new HTMLExporter();
+        System.out.println(testHtmlExporter.toHTML(pcm));*/
+        /*
         HTMLExporterCustom testHTML = new HTMLExporterCustom("params1.json");
         //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
         System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
@@ -173,7 +225,7 @@ public class HTMLExporterCustom {
         //Il faut parcourir les dataStyle (il possède un attibut "name")
         System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
 
-
+*/
 
 
 
@@ -196,18 +248,6 @@ public class HTMLExporterCustom {
 
     private boolean rangeOut(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM <= borneinf) || (valuePCM >= bornesup));
-    }
-
-    public void visit(Feature feature) {
-
-    }
-
-    public void visit(FeatureGroup featureGroup) {
-
-    }
-
-    public void visit(Product product) {
-
     }
 
     public void visit(Cell cell) {
