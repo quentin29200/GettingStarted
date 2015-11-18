@@ -24,7 +24,7 @@ public class Param {
     public Param(String json) {
         try {
             this.dataStyleParam = new ArrayList<DataStyle>();
-            JsonReader reader = new JsonReader(new FileReader("pcms\\PCM1\\"+json));
+            JsonReader reader = new JsonReader(new FileReader("pcms\\"+json));
 
             reader.beginObject();
 

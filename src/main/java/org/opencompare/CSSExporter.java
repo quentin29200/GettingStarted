@@ -94,7 +94,7 @@ public class CSSExporter {
 
 
     public static void main(String[] args) {
-        CSSExporter tmp = new CSSExporter("params1.json");
+        CSSExporter tmp = new CSSExporter("PCM1\\params2.json");
         tmp.generate();
 
         //Print CSS
