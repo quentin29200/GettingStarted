@@ -1,0 +1,22 @@
+{
+  "dataStyle":[
+    {
+      "name": "featurestyle",
+      "bgcolor": "#FF0000",
+      "txtcolor": "#FFFFFF"
+    },
+    {
+      "name": "compare1",
+      "bgcolor": "#000000",
+      "txtcolor": "#FFFFFF",
+      "value": 0
+    }
+  ],
+  "orderType":"asc",
+  "orderColumn":"",
+  "showBottomNameFeatures":false,
+  "reversePCM":false,
+  "showPCMname":false
+}
+
+

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class MyPCMPrinterTest {
 
     @Test
-    public void testMyPCMPrinter() throws IOException {
+    public  void testMyPCMPrinter() throws IOException {
             // Load a PCM
             File pcmFile = new File("pcms/example.pcm");
             File paramFile = new File("json/param1.json");
@@ -31,5 +31,6 @@ public class MyPCMPrinterTest {
             MyPCMPrinter myPrinter = new MyPCMPrinter();
             myPrinter.print(pcm);
     }
+
 
 }

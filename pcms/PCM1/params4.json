@@ -1,0 +1,27 @@
+{
+  "dataStyle":[
+    {
+      "name": "featurestyle",
+      "bgcolor": "#FF0000",
+      "txtcolor": "#FFFFFF"
+    },
+    {
+      "name": "col1style",
+      "width": 120
+    },
+    {
+      "name": "rangeout3",
+      "bgcolor": "#CCCCCC",
+      "txtcolor": "#FFFFFF",
+      "borneinf": 11,
+      "bornesup": 20
+    }
+  ],
+  "orderType":"desc",
+  "orderColumn":"col1",
+  "showBottomNameFeatures":true,
+  "reversePCM":true,
+  "showPCMname":true
+}
+
+
