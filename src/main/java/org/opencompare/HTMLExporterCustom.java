@@ -87,7 +87,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         var5 = pcm.getProducts().iterator();
         Iterator<DataStyle> itParam = parameter.getDataStyleParam().iterator();
         String name;
-
+    
         while(var5.hasNext() && itParam.hasNext()) {
             Product var7 = (Product) var5.next();
             this.tr = table.appendElement("tr");
