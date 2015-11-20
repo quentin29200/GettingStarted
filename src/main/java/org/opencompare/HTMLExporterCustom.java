@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -23,13 +22,10 @@ public class HTMLExporterCustom extends HTMLExporter {
     private Element body;
     private PCMMetadata metadata;
     private Element tr;
-    private  Param parameter;
+    private Param parameter;
 
     //modif par cheisda le 9.11.2015
     public String generatedHtml;
-
-
-
 
 
     Document.OutputSettings settings = new Document.OutputSettings();
@@ -85,20 +81,22 @@ public class HTMLExporterCustom extends HTMLExporter {
 
         // Traitement sur les produits récupérés par pcm.getProduct()
         var5 = pcm.getProducts().iterator();
-        Iterator<DataStyle> itParam = parameter.getDataStyleParam().iterator();
+        Iterator<DataStyle> itParam = parameters.getDataStyleParam().iterator();
         String name;
 
         while(var5.hasNext() && itParam.hasNext()) {
             Product var7 = (Product) var5.next();
+            DataStyle ds;
+            ds = itParam.next();
             this.tr = table.appendElement("tr");
             this.tr.appendElement("th").text(var7.getName());
             Iterator<Cell> var8 = var7.getCells().iterator();
             while(var8.hasNext()) {
                 Cell cell = var8.next();
                 cell.getContent();
-                this.tr = table.appendElement("tr");
+               // this.tr = table.appendElement("tr");
                 //** By Chloé
-                DataStyle ds = (DataStyle) itParam.next();
+
                 name = ds.getName();
                 if (name.contains("rangein")) { // A modifier, en haut mettre des booléens si rangein ou rangeout dans fichier Param
                     rangeIn(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
@@ -107,8 +105,8 @@ public class HTMLExporterCustom extends HTMLExporter {
                 }
                 // table.appendElement("td").addClass(name);
 
-                Element td = this.tr.appendElement("td");
-                td.appendElement("span").addClass(name).text(cell.getContent());
+                Element td = this.tr.appendElement("td").addClass(name);
+                td.appendElement("span").text(cell.getContent());
             }
         }
 
@@ -261,14 +259,14 @@ public class HTMLExporterCustom extends HTMLExporter {
 
  */
         // Load a PCM
-        File pcmFile = new File("pcms/PCM1/example.pcm");
+        File pcmFile = new File("pcms/PCM1/tesssvtttt369852147.pcm");
         //File paramFile = new File("pcms/PCM1/param1.json");
 
         // read the json file
         PCMLoader loader = new KMFJSONLoader();
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 
-        HTMLExporterCustom te = new HTMLExporterCustom("params1.json");
+        HTMLExporterCustom te = new HTMLExporterCustom("PCM1/params1.json");
         System.out.println(te.toHTML(pcm));
         //displays the HTML File into the console
         /*HTMLExporter testHtmlExporter = new HTMLExporter();
