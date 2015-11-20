@@ -1,0 +1,14 @@
+{
+  "dataStyle":[
+    {
+      "name": "ISOminstyle",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    }
+  ],
+  "orderType":"desc",
+  "orderColumn":"ISOmax",
+  "showBottomNameFeatures":true,
+  "reversePCM":false,
+  "showPCMname":true
+}
