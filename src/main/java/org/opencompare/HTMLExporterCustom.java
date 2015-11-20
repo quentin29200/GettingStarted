@@ -95,7 +95,7 @@ public class HTMLExporterCustom extends HTMLExporter {
                 Cell cell = var8.next();
                 cell.getContent();
                // this.tr = table.appendElement("tr");
-                //** By Chloé
+                //** By Chloé hu
 
                 name = ds.getName();
                 if (name.contains("rangein")) { // A modifier, en haut mettre des booléens si rangein ou rangeout dans fichier Param
