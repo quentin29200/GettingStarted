@@ -93,6 +93,27 @@ public class HTMLExporterCustom extends HTMLExporter {
         // Get Features
         this.featureDepth = pcm.getFeaturesDepth();
 
+        /*this.tr = table.appendElement("tr");
+        this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");*/
+
+        Iterator var5;
+        this.featuresRow(pcm, table);
+
+
+        var5 = pcm.getProducts().iterator();
+
+       while(var5.hasNext()) {
+            Product var7 = (Product)var5.next();
+            this.tr = table.appendElement("tr");
+            var7.accept(this);
+        }
+        if(this.parameters.isShowBottomNameFeatures() && !this.parameters.isReversePCM()){
+            this.featuresRow(pcm, table);
+        }
+
+    }
+
+    public void featuresRow(PCM pcm, Element table){
         // List of features
         LinkedList featuresToVisit = new LinkedList();
         this.nextFeaturesToVisit = new LinkedList();
@@ -100,7 +121,6 @@ public class HTMLExporterCustom extends HTMLExporter {
 
         this.tr = table.appendElement("tr");
         this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");
-
         Iterator var5;
         while(!featuresToVisit.isEmpty()) {
             Collections.sort(featuresToVisit, new Comparator() {
@@ -127,15 +147,6 @@ public class HTMLExporterCustom extends HTMLExporter {
                 this.tr = table.appendElement("tr");
             }
         }
-
-        var5 = pcm.getProducts().iterator();
-
-       while(var5.hasNext()) {
-            Product var7 = (Product)var5.next();
-            this.tr = table.appendElement("tr");
-            var7.accept(this);
-        }
-
     }
 
     public void visit(Feature feature) {
@@ -206,7 +217,7 @@ public class HTMLExporterCustom extends HTMLExporter {
  */
         // Load a PCM
         File pcmFile = new File("pcms/PCM1/example.pcm");
-        File paramFile = new File("pcms/PCM1/param1.json");
+        //File paramFile = new File("pcms/PCM1/param1.json");
 
         // read the json file
         PCMLoader loader = new KMFJSONLoader();
