@@ -8,6 +8,8 @@ import org.opencompare.api.java.io.PCMLoader;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertNotNull;
+
 
 /**
  *
@@ -20,9 +22,10 @@ public class TestExport {
         String p = "PCM1\\params1.json";
 
         // Load PCM
-        File pcmFile = new File("PCM1\\test-matrice-simple.pcm");
+        File pcmFile = new File("pcms/PCM1/tesssvtttt369852147.pcm");
         PCMLoader loader = new KMFJSONLoader();
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
+        assertNotNull(pcm);
 
         // Generate CSS
         CSSExporter css = new CSSExporter(p);
