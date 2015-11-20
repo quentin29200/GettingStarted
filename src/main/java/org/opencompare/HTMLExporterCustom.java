@@ -8,6 +8,7 @@ import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
 import org.opencompare.api.java.io.PCMLoader;
 import org.opencompare.api.java.value.*;
+import java.util.Comparator;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,33 +54,12 @@ public class HTMLExporterCustom extends HTMLExporter {
         this.metadata = container.getMetadata();
         //return this.toHTML(container.getPcm());
 
-                //modif by cheisda 9.11.2015
+        //modif by cheisda 9.11.2015
         generatedHtml = this.toHTML(container.getPcm());
         return generatedHtml;
 
     }
 
-
-   /*   EXEMPLE DE PARCOUR DU PRODUCT (LIGNE)
-
-        var5 = pcm.getProducts().iterator(); // ON RECUPERE LES PRODUCTS
-
-        while(var5.hasNext()) {
-            Product var7 = (Product)var5.next(); // POUR CHAQUE PRODUCT
-            // AFFICHE LE NOM DU PRODUCT (BALISE TH)
-
-            Iterator var8 = var7.getCells().iterator();// ON PARCOURS LES CELLULES DE PRODUCT (DE LA LIGNE)
-            while(var8.hasNext()) {
-                Cell date = (Cell)var8.next() // ON RECUPERE LA CELLULE
-                // TROUVER DANS LA CLASSE CELL LA FONCTION POUR RECUPERER LA VALUE
-
-                table.appendElement("td").addClass("patate");// OUVRE LA LIGNE DU TABLEAU
-                // AFFICHER LA VALUE ET VERIFIER RANGE IN ET RANGE OUT (OBJET PARAM)
-              }
-        }
-
-    }
-    */
 
 
     public void visit(PCM pcm) {
@@ -89,24 +69,50 @@ public class HTMLExporterCustom extends HTMLExporter {
         title.attr("id", "title").text(pcm.getName());
         Element table = this.body.appendElement("table");
         table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1");
+        //Boolean rangein, rangeout = false;
 
         // Get Features
         this.featureDepth = pcm.getFeaturesDepth();
+        LinkedList featuresToVisit = new LinkedList();
+        this.nextFeaturesToVisit = new LinkedList();
+        featuresToVisit.addAll(pcm.getFeatures());
 
         /*this.tr = table.appendElement("tr");
         this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");*/
-        //fezfzefe
+
         Iterator var5;
         this.featuresRow(pcm, table);
 
-
+        // Traitement sur les produits récupérés par pcm.getProduct()
         var5 = pcm.getProducts().iterator();
+        Iterator<DataStyle> itParam = parameter.getDataStyleParam().iterator();
+        String name;
 
-       while(var5.hasNext()) {
-            Product var7 = (Product)var5.next();
+        while(var5.hasNext() && itParam.hasNext()) {
+            Product var7 = (Product) var5.next();
             this.tr = table.appendElement("tr");
-            var7.accept(this);
+            this.tr.appendElement("th").text(var7.getName());
+            Iterator<Cell> var8 = var7.getCells().iterator();
+            while(var8.hasNext()) {
+                Cell cell = var8.next();
+                cell.getContent();
+                this.tr = table.appendElement("tr");
+                //** By Chloé
+                DataStyle ds = (DataStyle) itParam.next();
+                name = ds.getName();
+                if (name.contains("rangein")) { // A modifier, en haut mettre des booléens si rangein ou rangeout dans fichier Param
+                    rangeIn(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
+                } else if (name.contains("rangeout")) {
+                    rangeOut(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
+                }
+                // table.appendElement("td").addClass(name);
+
+                Element td = this.tr.appendElement("td");
+                td.appendElement("span").addClass(name).text(cell.getContent());
+            }
         }
+
+        //By Romain
         if(this.parameters.isShowBottomNameFeatures() && !this.parameters.isReversePCM()){
             this.featuresRow(pcm, table);
         }
@@ -133,12 +139,28 @@ public class HTMLExporterCustom extends HTMLExporter {
                     return HTMLExporterCustom.this.metadata.getFeaturePosition(feat1) - HTMLExporterCustom.this.metadata.getFeaturePosition(feat2);
                 }
             });
+
             var5 = featuresToVisit.iterator();
+           /* Iterator<DataStyle> itParam = parameter.getDataStyleParam().iterator();
+            String name;
+
+            while (var5.hasNext() && itParam.hasNext()) {
+                AbstractFeature product = (AbstractFeature) var5.next();
+                //** Affichage des entête et des produits
+                //** By Chloé on 18/11
+                DataStyle ds = (DataStyle) itParam.next();
+                product.accept(this);
+                ds.accept(this);
+                name = ds.getName();
+                table.appendElement("th").addClass(name); //! Attention à fonction append() ou appendElement()
+                // Demander si on doit mettre la classe dans un span plutôt que dans th
+            }*/
 
             while(var5.hasNext()) {
                 AbstractFeature product = (AbstractFeature)var5.next();
                 product.accept(this);
             }
+
 
             featuresToVisit = this.nextFeaturesToVisit;
             this.nextFeaturesToVisit = new LinkedList();
@@ -166,6 +188,29 @@ public class HTMLExporterCustom extends HTMLExporter {
 
         th.text(featureGroup.getName());
         this.nextFeaturesToVisit.addAll(featureGroup.getFeatures());
+    }
+
+    public void visit(Product product, DataStyle ds) {
+        this.tr.appendElement("th").text(product.getName());
+        List cells = product.getCells();
+        Collections.sort(cells, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+
+            public int compare(Cell cell1, Cell cell2) {
+                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+            }
+        });
+        Iterator var3 = cells.iterator();
+
+        while(var3.hasNext()) {
+            Cell cell = (Cell)var3.next();
+            Element td = this.tr.appendElement("td");
+            td.appendElement("span").text(cell.getContent());
+        }
+
     }
 
     public void visit(Product product) {
@@ -216,7 +261,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
  */
         // Load a PCM
-        File pcmFile = new File("pcms/PCM1/test-matrice-simple.pcm");
+        File pcmFile = new File("pcms/PCM1/example.pcm");
         //File paramFile = new File("pcms/PCM1/param1.json");
 
         // read the json file
@@ -265,7 +310,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
-   // @Override
+    // @Override
     public void visit(BooleanValue booleanValue) {
 
     }
