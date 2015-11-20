@@ -19,7 +19,7 @@ public class TestExport {
         String p = "PCM1\\params1.json";
 
         // Load PCM
-        File pcmFile = new File("PCM1\\example.pcm");
+        File pcmFile = new File("PCM1\\test-matrice-simple.pcm");
         PCMLoader loader = new KMFJSONLoader();
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 

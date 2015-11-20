@@ -216,7 +216,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
  */
         // Load a PCM
-        File pcmFile = new File("pcms/PCM1/example.pcm");
+        File pcmFile = new File("pcms/PCM1/test-matrice-simple.pcm");
         //File paramFile = new File("pcms/PCM1/param1.json");
 
         // read the json file

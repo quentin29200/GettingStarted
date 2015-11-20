@@ -1,0 +1,25 @@
+{
+  "dataStyle":[
+      {
+        "name": "GPSstyle",
+        "bgcolor": "#FE2EF7",
+        "txtcolor": "#122A0A"
+      },
+      {
+        "name": "Wifistyle",
+        "bgcolor": "#58D3F7",
+        "txtcolor": "#F6E3CE"
+      },
+      {
+        "name": "Wifistyle",
+        "width": 120
+      }
+    ],
+  "orderType":"asc",
+  "orderColumn":"GPS",
+  "showBottomNameFeatures":false,
+  "reversePCM":false,
+  "showPCMname":false
+}
+
+
