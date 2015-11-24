@@ -8,10 +8,10 @@ import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
 import org.opencompare.api.java.io.PCMLoader;
 import org.opencompare.api.java.value.*;
+
+import java.io.*;
 import java.util.Comparator;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.Collections;
 import java.util.Iterator;
@@ -267,24 +267,40 @@ public class HTMLExporterCustom extends HTMLExporter {
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM1/params1.json");
-        System.out.println(te.toHTML(pcm));
-        //displays the HTML File into the console
-        /*HTMLExporter testHtmlExporter = new HTMLExporter();
-        System.out.println(testHtmlExporter.toHTML(pcm));*/
-        /*
-        HTMLExporterCustom testHTML = new HTMLExporterCustom("params1.json");
-        //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
-        System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
-        
-        //Il faut parcourir les dataStyle (il possède un attibut "name")
-        System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
+        //System.out.println(te.toHTML(pcm));
 
-*/
+
+        //modif by cheisda 24.11.2015
+
+
+        generateHTMLFile(te);
 
 
 
     }//fin main
 
+
+    //Modif by Cheisda
+
+    public static void generateHTMLFile(HTMLExporterCustom test) {
+
+        File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
+
+
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src\\HTMLGenerated.html"), "utf-8"));
+            writer.write(String.valueOf(test));
+        } catch (IOException ex) {
+            // report
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception ex) {/*ignore*/}
+        }
+
+    }
 
 
     public String export(PCMContainer container) {
