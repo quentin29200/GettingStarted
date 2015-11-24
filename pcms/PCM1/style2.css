@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.Prixstyle {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.modèlestyle {
+    background-color: #3B240B;
+    color: #01DF74;
+}
+
+.rangein1 {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.rangein2 {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.rangein3 {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.compare1 {
+    background-color: #FF0000;
+    color: #CCCCCC;
+}
+
+.Productstyle { width: 60px; }

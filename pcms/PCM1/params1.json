@@ -12,21 +12,21 @@
     },
     {
       "name": "rangein1",
-      "bgcolor": "#FFFFFF",
+      "bgcolor": "#FFFFFFF",
       "txtcolor": "#000000",
       "borneinf": 0,
       "bornesup": 200
     },
     {
       "name": "rangein2",
-      "bgcolor": "#FFFFFF",
+      "bgcolor": "#FFFFFFF",
       "txtcolor": "#000000",
       "borneinf": 201,
       "bornesup": 500
     },
     {
       "name": "rangein3",
-      "bgcolor": "#FFFFFF",
+      "bgcolor": "#FFFFFFF",
       "txtcolor": "#000000",
       "borneinf": 501,
       "bornesup": 1000

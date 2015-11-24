@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.GPSstyle {
+    background-color: #FE2EF7;
+    color: #122A0A;
+}
+
+.Wifistyle {
+    background-color: #58D3F7;
+    color: #F6E3CE;
+}
+
+.Wifistyle { width: 120px; }
