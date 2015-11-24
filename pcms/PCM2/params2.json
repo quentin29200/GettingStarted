@@ -6,7 +6,7 @@
       "txtcolor": "#000000"
     },
     {
-      "name": "Comments/otherinfostyle",
+      "name": "CommentsOtherinfostyle",
       "bgcolor": "#FE2EF7",
       "txtcolor": "#122A0A"
     },
@@ -18,10 +18,7 @@
     {
       "name": "Outputstyle",
       "bgcolor": "#FE2EF7",
-      "txtcolor": "#122A0A"
-    },
-    {
-      "name": "Feature2style",
+      "txtcolor": "#122A0A",
       "width": 120
     }
   ],

@@ -3,10 +3,7 @@
     {
       "name": "Feature2style",
       "bgcolor": "#58D3F7",
-      "txtcolor": "#58D3F7"
-    },
-    {
-      "name": "Feature2style",
+      "txtcolor": "#58D3F7",
       "width": 250
     }
   ],
