@@ -29,7 +29,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
 
     Document.OutputSettings settings = new Document.OutputSettings();
-    private String templateFull = "<html>\n\t<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t</head>\n\t<body>\n\t</body>\n</html>";
+    private String templateFull = "<html>\n\t<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" media=\"screen\" />\n\t</head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
 
@@ -60,7 +60,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     public void visit(PCM pcm) {
         // Init html table
-        this.body.appendElement("h1").text(pcm.getName());
+        //this.body.appendElement("h1").text(pcm.getName());
         Element title = this.body.appendElement("h1");
         title.attr("id", "title").text(pcm.getName());
         Element table = this.body.appendElement("table");
