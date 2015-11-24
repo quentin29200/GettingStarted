@@ -1,6 +1,2 @@
-@charset "UTF-8";
-
-.Feature1style {
-    background-color: #FFFFFF;
-    color: #000000;
-}
+@charset 'UTF-8';
+.Feature1style{background:#fff;color:#000}

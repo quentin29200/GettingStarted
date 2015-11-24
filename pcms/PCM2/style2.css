@@ -1,23 +1,5 @@
-@charset "UTF-8";
-
-.Languagestyle {
-    background-color: #FFFFFF;
-    color: #000000;
-}
-
-.CommentsOtherinfostyle {
-    background-color: #FE2EF7;
-    color: #122A0A;
-}
-
-.Licencestyle {
-    background-color: #3B240B;
-    color: #01DF74;
-}
-
-.Outputstyle {
-    background-color: #FE2EF7;
-    color: #122A0A;
-}
-
-.Outputstyle { width: 120px; }
+@charset 'UTF-8';
+.Languagestyle{background:#fff;color:#000}
+.CommentsOtherinfostyle{background:#fe2ef7;color:#122a0a}
+.Licencestyle{background:#3b240b;color:#01df74}
+.Outputstyle{background:#fe2ef7;color:#122a0a;width:120px}

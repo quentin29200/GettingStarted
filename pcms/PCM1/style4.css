@@ -1,13 +1,4 @@
-@charset "UTF-8";
-
-.rangein1 {
-    background-color: #FFFFFF;
-    color: #000000;
-}
-
-.rangein2 {
-    background-color: #FFFFFF;
-    color: #000000;
-}
-
-.Productstyle { width: 250px; }
+@charset 'UTF-8';
+.rangein1{background:#fff;color:#000}
+.rangein2{background:#fff;color:#000}
+.Productstyle{width:250px}

@@ -23,10 +23,7 @@
     {
       "name": "Outputstyle",
       "bgcolor": "#FE2EF7",
-      "txtcolor": "#122A0A"
-    },
-    {
-      "name": "Outputstyle",
+      "txtcolor": "#122A0A",
       "width": 250
     }
   ],

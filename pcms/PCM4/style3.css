@@ -1,6 +1,2 @@
-@charset "UTF-8";
-
-.ISOminstyle {
-    background-color: #FFFFFF;
-    color: #000000;
-}
+@charset 'UTF-8';
+.ISOminstyle{background:#fff;color:#000}
