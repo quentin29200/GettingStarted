@@ -1,6 +1,8 @@
 package org.opencompare;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
+
 import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.PCMLoader;
