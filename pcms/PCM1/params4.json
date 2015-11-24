@@ -2,14 +2,14 @@
   "dataStyle":[
     {
       "name": "rangein1",
-      "bgcolor": "#FFFFFFF",
+      "bgcolor": "#FFFFFF",
       "txtcolor": "#000000",
       "borneinf": 0,
       "bornesup": 200
     },
     {
       "name": "rangein2",
-      "bgcolor": "#FFFFFFF",
+      "bgcolor": "#FFFFFF",
       "txtcolor": "#000000",
       "borneinf": 201,
       "bornesup": 500
