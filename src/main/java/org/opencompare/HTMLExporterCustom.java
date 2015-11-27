@@ -1,37 +1,72 @@
 package org.opencompare;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.opencompare.api.java.*;
+import org.jsoup.nodes.Document.OutputSettings;
+import org.opencompare.api.java.AbstractFeature;
+import org.opencompare.api.java.Cell;
+import org.opencompare.api.java.Feature;
+import org.opencompare.api.java.FeatureGroup;
+import org.opencompare.api.java.PCM;
+import org.opencompare.api.java.PCMContainer;
+import org.opencompare.api.java.PCMMetadata;
+import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
+import org.opencompare.api.java.io.PCMExporter;
 import org.opencompare.api.java.io.PCMLoader;
-import org.opencompare.api.java.value.*;
-import java.util.Comparator;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
+import org.opencompare.api.java.util.PCMVisitor;
+import org.opencompare.api.java.value.BooleanValue;
+import org.opencompare.api.java.value.Conditional;
+import org.opencompare.api.java.value.DateValue;
+import org.opencompare.api.java.value.Dimension;
+import org.opencompare.api.java.value.IntegerValue;
+import org.opencompare.api.java.value.Multiple;
+import org.opencompare.api.java.value.NotApplicable;
+import org.opencompare.api.java.value.NotAvailable;
+import org.opencompare.api.java.value.Partial;
+import org.opencompare.api.java.value.RealValue;
+import org.opencompare.api.java.value.StringValue;
+import org.opencompare.api.java.value.Unit;
+import org.opencompare.api.java.value.Version;
 
 public class HTMLExporterCustom extends HTMLExporter {
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
     private Element tr;
-    private Param parameter;
-
-    //modif par cheisda le 9.11.2015
-    public String generatedHtml;
-
-
     Document.OutputSettings settings = new Document.OutputSettings();
     private String templateFull = "<html>\n\t<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t</head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
+    private Param parameters;
+
+    public Param getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Param parameters) {
+        this.parameters = parameters;
+    }
+
+    //constructeur de la classe
+    public HTMLExporterCustom(String fileName) {
+        Param param = new Param(fileName);
+        setParameters(param);
+    }
+
+
+    public String export(PCMContainer container) {
+        return this.toHTML(container);
+    }
 
     public String toHTML(PCM pcm) {
         this.settings.prettyPrint();
@@ -46,7 +81,12 @@ public class HTMLExporterCustom extends HTMLExporter {
         return this.doc.outputSettings(this.settings).outerHtml();
     }
 
-    public String generateHTML(PCMContainer container) {
+    public String toHTML(PCMContainer container) {
+        this.metadata = container.getMetadata();
+        return this.toHTML(container.getPcm());
+    }
+
+    /*public String generateHTML(PCMContainer container) {
         this.metadata = container.getMetadata();
         //return this.toHTML(container.getPcm());
 
@@ -54,65 +94,147 @@ public class HTMLExporterCustom extends HTMLExporter {
         generatedHtml = this.toHTML(container.getPcm());
         return generatedHtml;
 
-    }
+    }*/
 
 
 
     public void visit(PCM pcm) {
-        // Init html table
         this.body.appendElement("h1").text(pcm.getName());
         Element title = this.body.appendElement("h1");
         title.attr("id", "title").text(pcm.getName());
         Element table = this.body.appendElement("table");
         table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1");
-        //Boolean rangein, rangeout = false;
-
-        // Get Features
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
         this.nextFeaturesToVisit = new LinkedList();
         featuresToVisit.addAll(pcm.getFeatures());
-
         /*this.tr = table.appendElement("tr");
         this.tr.appendElement("th").attr("rowspan", Integer.toString(this.featureDepth)).text("Product");*/
-
         Iterator var5;
         this.featuresRow(pcm, table);
 
-        // Traitement sur les produits récupérés par pcm.getProduct()
         var5 = pcm.getProducts().iterator();
         Iterator<DataStyle> itParam = parameters.getDataStyleParam().iterator();
-        String name;
-        //gez
-        while(var5.hasNext() && itParam.hasNext()) {
+        String name = null;
+
+        while(var5.hasNext() || itParam.hasNext()) {
+            /*Product var7 = (Product)var5.next();
+            this.tr = table.appendElement("tr");
+            var7.accept(this);*/
             Product var7 = (Product) var5.next();
-            DataStyle ds;
-            ds = itParam.next();
+            List cells = var7.getCells();
+            Collections.sort(cells, new Comparator() {
+                @Override
+                public int compare(Object o1, Object o2) {
+                    Cell cell1 = (Cell)o1;
+                    Cell cell2 = (Cell)o2;
+                    return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+
+                }
+            });
+            Iterator var3 = cells.iterator();
+            DataStyle ds = null;
+            if(itParam.hasNext()){
+                ds = itParam.next();
+
+            }
             this.tr = table.appendElement("tr");
             this.tr.appendElement("th").text(var7.getName());
-            Iterator<Cell> var8 = var7.getCells().iterator();
-            while(var8.hasNext()) {
-                Cell cell = var8.next();
+            //Iterator<Cell> var8 = var7.getCells().iterator();
+            while(var3.hasNext()) {
+                Cell cell = (Cell)var3.next();
                 cell.getContent();
-               // this.tr = table.appendElement("tr");
+                //System.out.println(cell);
+                // this.tr = table.appendElement("tr");
                 //** By Chloé hu
-
-                name = ds.getName();
-                if (name.contains("rangein")) { // A modifier, en haut mettre des booléens si rangein ou rangeout dans fichier Param
-                    rangeIn(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
-                } else if (name.contains("rangeout")) {
-                    rangeOut(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
+                if(itParam.hasNext()){
+                    name = ds.getName();
+                    if (name.contains("rangein")) { // A modifier, en haut mettre des booléens si rangein ou rangeout dans fichier Param
+                        rangeIn(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
+                    } else if (name.contains("rangeout")) {
+                        rangeOut(ds.getBorneinf(), ds.getBornesup(), ds.getValue());
+                    }
                 }
-                // table.appendElement("td").addClass(name);
 
                 Element td = this.tr.appendElement("td").addClass(name);
                 td.appendElement("span").text(cell.getContent());
+                // table.appendElement("td").addClass(name);
+
+
             }
         }
 
-        //By Romain
         if(this.parameters.isShowBottomNameFeatures() && !this.parameters.isReversePCM()){
             this.featuresRow(pcm, table);
+        }
+
+    }
+
+    public void visit(Feature feature) {
+        Element th = this.tr.appendElement("th");
+        if(this.featureDepth > 1) {
+            th.attr("rowspan", Integer.toString(this.featureDepth));
+        }
+
+        th.text(feature.getName());
+    }
+
+    public void visit(FeatureGroup featureGroup) {
+        Element th = this.tr.appendElement("th");
+        if(!featureGroup.getFeatures().isEmpty()) {
+            th.attr("colspan", Integer.toString(featureGroup.getFeatures().size()));
+        }
+
+        th.text(featureGroup.getName());
+        this.nextFeaturesToVisit.addAll(featureGroup.getFeatures());
+    }
+
+    public void visit(Product product, DataStyle ds) {
+        this.tr.appendElement("th").text(product.getName());
+        List cells = product.getCells();
+        Collections.sort(cells, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Cell cell1 = (Cell)o1;
+                Cell cell2 = (Cell)o2;
+                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+
+            }
+
+           /* public int compare(Cell cell1, Cell cell2) {
+                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+            }*/
+        });
+        Iterator var3 = cells.iterator();
+
+        while(var3.hasNext()) {
+            Cell cell = (Cell)var3.next();
+            Element td = this.tr.appendElement("td");
+            td.appendElement("span").text(cell.getContent());
+        }
+
+    }
+
+    public void visit(Product product) {
+        this.tr.appendElement("th").text(product.getName());
+        List cells = product.getCells();
+        Collections.sort(cells, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Cell cell1 = (Cell)o1;
+                Cell cell2 = (Cell)o2;
+                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+            }
+            /*public int compare(Cell cell1, Cell cell2) {
+                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
+            }*/
+        });
+        Iterator var3 = cells.iterator();
+
+        while(var3.hasNext()) {
+            Cell cell = (Cell)var3.next();
+            Element td = this.tr.appendElement("td");
+            td.appendElement("span").text(cell.getContent());
         }
 
     }
@@ -130,12 +252,13 @@ public class HTMLExporterCustom extends HTMLExporter {
             Collections.sort(featuresToVisit, new Comparator() {
                 @Override
                 public int compare(Object o1, Object o2) {
-                    return 0;
-                }
-
-                public int compare(AbstractFeature feat1, AbstractFeature feat2) {
+                    AbstractFeature feat1 = (AbstractFeature)o1;
+                    AbstractFeature feat2 = (AbstractFeature)o2;
                     return HTMLExporterCustom.this.metadata.getFeaturePosition(feat1) - HTMLExporterCustom.this.metadata.getFeaturePosition(feat2);
                 }
+                /*public int compare(AbstractFeature feat1, AbstractFeature feat2) {
+                    return HTMLExporterCustom.this.metadata.getFeaturePosition(feat1) - HTMLExporterCustom.this.metadata.getFeaturePosition(feat2);
+                }*/
             });
 
             var5 = featuresToVisit.iterator();
@@ -169,91 +292,6 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
     }
 
-    public void visit(Feature feature) {
-        Element th = this.tr.appendElement("th");
-        if(this.featureDepth > 1) {
-            th.attr("rowspan", Integer.toString(this.featureDepth));
-        }
-
-        th.text(feature.getName());
-    }
-
-    public void visit(FeatureGroup featureGroup) {
-        Element th = this.tr.appendElement("th");
-        if(!featureGroup.getFeatures().isEmpty()) {
-            th.attr("colspan", Integer.toString(featureGroup.getFeatures().size()));
-        }
-
-        th.text(featureGroup.getName());
-        this.nextFeaturesToVisit.addAll(featureGroup.getFeatures());
-    }
-
-    public void visit(Product product, DataStyle ds) {
-        this.tr.appendElement("th").text(product.getName());
-        List cells = product.getCells();
-        Collections.sort(cells, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return 0;
-            }
-
-            public int compare(Cell cell1, Cell cell2) {
-                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
-            }
-        });
-        Iterator var3 = cells.iterator();
-
-        while(var3.hasNext()) {
-            Cell cell = (Cell)var3.next();
-            Element td = this.tr.appendElement("td");
-            td.appendElement("span").text(cell.getContent());
-        }
-
-    }
-
-    public void visit(Product product) {
-        this.tr.appendElement("th").text(product.getName());
-        List cells = product.getCells();
-        Collections.sort(cells, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return 0;
-            }
-
-            public int compare(Cell cell1, Cell cell2) {
-                return HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell1.getFeature()) - HTMLExporterCustom.this.metadata.getSortedFeatures().indexOf(cell2.getFeature());
-            }
-        });
-        Iterator var3 = cells.iterator();
-
-        while(var3.hasNext()) {
-            Cell cell = (Cell)var3.next();
-            Element td = this.tr.appendElement("td");
-            td.appendElement("span").text(cell.getContent());
-        }
-
-    }
-
-    //11.11.2015
-    private Param parameters;
-
-    public Param getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Param parameters) {
-        this.parameters = parameters;
-    }
-
-    //constructeur de la classe
-    public HTMLExporterCustom(String fileName) {
-        Param param = new Param(fileName);
-        setParameters(param);
-    }
-
-
-
-    /* Main */
     public static void main(String[] args) throws IOException {
 /*
 
@@ -268,14 +306,13 @@ public class HTMLExporterCustom extends HTMLExporter {
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM1/params1.json");
         System.out.println(te.toHTML(pcm));
-        //displays the HTML File into the console
-        /*HTMLExporter testHtmlExporter = new HTMLExporter();
-        System.out.println(testHtmlExporter.toHTML(pcm));*/
+        HTMLExporter testHtmlExporter = new HTMLExporter();
+        //System.out.println(testHtmlExporter.toHTML(pcm));
         /*
         HTMLExporterCustom testHTML = new HTMLExporterCustom("params1.json");
         //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
         System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
-        
+
         //Il faut parcourir les dataStyle (il possède un attibut "name")
         System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
 
@@ -284,16 +321,6 @@ public class HTMLExporterCustom extends HTMLExporter {
 
 
     }//fin main
-
-
-
-    public String export(PCMContainer container) {
-        return null;
-    }
-
-    public String toHTML(PCMContainer container) {
-        return null;
-    }
 
 
     private boolean rangeIn(int borneinf, int bornesup, int valuePCM) {
