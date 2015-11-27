@@ -1,0 +1,19 @@
+@charset 'UTF-8';
+.Languagestyle{background:#fff;color:#000}
+.Inputstyle{background:#58d3f7;color:f6e3cd}
+.CommentsOtherinfostyle{background:#fe2ef7;color:#122a0a}
+.Licencestyle{background:#3b240b;color:#01df74}
+.Outputstyle{background:#fe2ef7;color:#;width:250px}
+
+/**
+ * Resultat retourne par la generation :
+ * =====================================
+
+  .Languagestyle{background:#fff;color:#000}
+  .Inputstyle{background:#58d3f7;color:#f6e3ce}
+  .CommentsOtherinfostyle{background:#fe2ef7;color:#122a0a}
+  .Licencestyle{background:#3b240b;color:#01df74}
+  .Outputstyle{width:250px;background:#fe2ef7;color:#122a0a}
+
+
+*/

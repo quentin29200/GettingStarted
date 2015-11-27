@@ -23,20 +23,15 @@ import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
 import org.opencompare.api.java.io.PCMExporter;
 import org.opencompare.api.java.io.PCMLoader;
-import org.opencompare.api.java.util.PCMVisitor;
-import org.opencompare.api.java.value.BooleanValue;
-import org.opencompare.api.java.value.Conditional;
-import org.opencompare.api.java.value.DateValue;
-import org.opencompare.api.java.value.Dimension;
-import org.opencompare.api.java.value.IntegerValue;
-import org.opencompare.api.java.value.Multiple;
-import org.opencompare.api.java.value.NotApplicable;
-import org.opencompare.api.java.value.NotAvailable;
-import org.opencompare.api.java.value.Partial;
-import org.opencompare.api.java.value.RealValue;
-import org.opencompare.api.java.value.StringValue;
-import org.opencompare.api.java.value.Unit;
-import org.opencompare.api.java.value.Version;
+import org.opencompare.api.java.value.*;
+
+import java.io.*;
+import java.util.Comparator;
+
+import java.util.*;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class HTMLExporterCustom extends HTMLExporter {
     private Document doc;
@@ -308,20 +303,46 @@ public class HTMLExporterCustom extends HTMLExporter {
         System.out.println(te.toHTML(pcm));
         HTMLExporter testHtmlExporter = new HTMLExporter();
         //System.out.println(testHtmlExporter.toHTML(pcm));
-        /*
-        HTMLExporterCustom testHTML = new HTMLExporterCustom("params1.json");
+
         //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
-        System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
+        //System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
 
         //Il faut parcourir les dataStyle (il possède un attibut "name")
-        System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
+        //System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
+        //System.out.println(te.toHTML(pcm));
 
-*/
+
+        //modif by cheisda 24.11.2015
+
+
+        generateHTMLFile(te);
 
 
 
     }//fin main
 
+
+    //Modif by Cheisda
+
+    public static void generateHTMLFile(HTMLExporterCustom test) {
+
+        File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
+
+
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src\\HTMLGenerated.html"), "utf-8"));
+            writer.write(String.valueOf(test));
+        } catch (IOException ex) {
+            // report
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception ex) {/*ignore*/}
+        }
+
+    }
 
     private boolean rangeIn(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM >= borneinf) && (valuePCM <= bornesup));

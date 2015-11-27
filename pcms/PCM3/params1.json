@@ -8,10 +8,7 @@
       {
         "name": "Feature2style",
         "bgcolor": "#58D3F7",
-        "txtcolor": "#F6E3CE"
-      },
-      {
-        "name": "Feature2style",
+        "txtcolor": "#F6E3CE",
         "width": 120
       }
     ],
