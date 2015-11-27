@@ -9,6 +9,7 @@ import org.opencompare.api.java.io.PCMLoader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -32,7 +33,17 @@ public class TestExport {
         // Generate CSS
         CSSExporter css = new CSSExporter(p);
         css.generate();
+
         // Tester le rendu du CSS
+        File testcss = new File("pcms/PCM1/style1.css");
+        File generatecss = new File("src/style.css");
+
+        String testcss_s = new Scanner(testcss).useDelimiter("\\Z").next();
+
+        String generatecss_s = new Scanner(generatecss).useDelimiter("\\Z").next();
+        System.out.println(testcss_s.compareTo(generatecss_s));
+
+        assertTrue(testcss_s.compareTo(generatecss_s)==0);
 
        // ExportToHTML
         HTMLExporterCustom exporter = new HTMLExporterCustom(p);
