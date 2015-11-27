@@ -17,6 +17,17 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/*
+Import by cheisda for Zipping files
+ */
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 public class HTMLExporterCustom extends HTMLExporter {
     private Document doc;
     private Element body;
@@ -267,14 +278,44 @@ public class HTMLExporterCustom extends HTMLExporter {
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM1/params1.json");
-        //System.out.println(te.toHTML(pcm));
+        System.out.println(te.toHTML(pcm));
+
+        //modif by cheisda 24.11.2015 : génération du fichier HTML
+        //generateHTMLFile(te, pcm);
+
+        try {
+            //Output file
+            FileOutputStream fos = new FileOutputStream("src\\TestArchivePDL.zip");
+            //Creating the output file
+            ZipOutputStream zos = new ZipOutputStream(fos);
 
 
-        //modif by cheisda 24.11.2015
+            //getting files to zip them
+            String fileGeneratedHTMLPath = "src\\HTMLGenerated.html";
+            String fileGeneratedCSSPath = "src\\style.css";
+            //getting Files size
+            int CSSSize = getFileSize(fileGeneratedCSSPath);
+            int HTMLSize = getFileSize(fileGeneratedHTMLPath);
+            System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
+            int totalFilesSize = CSSSize+HTMLSize;
 
 
-        generateHTMLFile(te);
+            //Adding to archive File
+            addToZipFile(fileGeneratedHTMLPath,zos, totalFilesSize);
+            addToZipFile(fileGeneratedCSSPath,zos,totalFilesSize);
 
+            //closing the streamsH
+            zos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        
 
 
     }//fin main
@@ -282,25 +323,52 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     //Modif by Cheisda
 
-    public static void generateHTMLFile(HTMLExporterCustom test) {
-
-        File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
-
-
-        Writer writer = null;
-
+    public static void generateHTMLFile(HTMLExporterCustom dataResults, PCM pcm) {
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src\\HTMLGenerated.html"), "utf-8"));
-            writer.write(String.valueOf(test));
-        } catch (IOException ex) {
-            // report
-        } finally {
-            try {
-                writer.close();
-            } catch (Exception ex) {/*ignore*/}
+            File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
+            FileWriter fileWriter = new FileWriter(HTMLGeneratedFile);
+            fileWriter.write(dataResults.toHTML(pcm));
+            fileWriter.flush();
+            fileWriter.close();
+            if (HTMLGeneratedFile == null){
+                System.out.println("le fichier généré est vide");
+            } else {
+                System.out.println("Bravo le fichier HTML a bien été généré !");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
+
+    public static int getFileSize(String filename) {
+        File file = new File(filename);
+        if (!file.exists() || !file.isFile()) {
+            System.out.println("File doesn\'t exist");
+            return -1;
+        }
+        return (int)file.length();
+    }
+
+    private static void addToZipFile(String filePath, ZipOutputStream zos,int filesSize)throws FileNotFoundException,IOException {
+        System.out.println("Writing '" + filePath + "' to zip file");
+
+        File file = new File(filePath);
+        FileInputStream fis = new FileInputStream(file);
+        ZipEntry zipEntry = new ZipEntry(filePath);
+        zos.putNextEntry(zipEntry);
+
+
+        byte[] bytes = new byte[filesSize];
+        int length;
+        while ((length = fis.read(bytes)) >= 0) {
+            zos.write(bytes, 0, length);
+        }
+
+        zos.closeEntry();
+        fis.close();
+    }
+
 
 
     public String export(PCMContainer container) {
