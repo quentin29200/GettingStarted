@@ -296,7 +296,7 @@ public class HTMLExporterCustom extends HTMLExporter {
             //getting Files size
             int CSSSize = getFileSize(fileGeneratedCSSPath);
             int HTMLSize = getFileSize(fileGeneratedHTMLPath);
-            System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
+            System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + " octets. ");
             int totalFilesSize = CSSSize+HTMLSize;
 
 
