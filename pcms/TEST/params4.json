@@ -1,0 +1,27 @@
+{
+  "dataStyle":[
+    {
+      "name": "rangein1",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 0,
+      "bornesup": 200
+    },
+    {
+      "name": "rangein2",
+      "bgcolor": "#FFFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 201,
+      "bornesup": 500
+    },
+    {
+      "name": "Productstyle",
+      "width": 250
+    }
+  ],
+  "orderType":"asc",
+  "orderColumn":"Prix",
+  "showBottomNameFeatures":true,
+  "reversePCM":true,
+  "showPCMname":true
+}
