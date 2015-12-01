@@ -1,3 +1,7 @@
+/**
+ * This class generate an HTML file and put in a ZIP file with a style.css
+ * , previously generated with the CSSExporter class.
+ */
 package org.opencompare;
 
 import java.io.File;
@@ -746,9 +750,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
 
     /**
-     * This function have 2 parameters, a PCM and the new data we want to use to generate the HTML file
-     * and the pcm which contains the products matrix
-     *
+     * This function have 2 parameters, a PCM, which contains the products matrix and the new data we want to use in order to generate the HTML file
      * @param dataResults
      * @param pcm
      */
