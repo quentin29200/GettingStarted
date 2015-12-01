@@ -3,7 +3,7 @@
     {
       "name": "Storagemediastyle",
       "bgcolor": "#58D3F7",
-      "txtcolor": "#58D3F7"
+      "txtcolor": "#FFFFFF"
     },
     {
       "name": "GPSstyle",
@@ -32,7 +32,7 @@
   ],
   "orderType":"asc",
   "orderColumn":"Isomax",
-  "showBottomNameFeatures":false,
-  "reversePCM":true,
+  "showBottomNameFeatures":true,
+  "reversePCM":false,
   "showPCMname":true
 }

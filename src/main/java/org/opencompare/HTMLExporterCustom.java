@@ -505,7 +505,6 @@ public class HTMLExporterCustom extends HTMLExporter {
                             }else{
                                 tmp = Integer.parseInt(cell.getContent());
                                 if (tmp == ds.getValue()) {
-                                    System.out.println("fge");
                                     td = td.appendElement("td").addClass(ds.getName());
                                     break;
                                 }
@@ -573,7 +572,6 @@ public class HTMLExporterCustom extends HTMLExporter {
      * @param feature
      */
     public void visit(Feature feature) {
-        //System.out.println(feature.getCells());
         if(this.getParameters().isReversePCM()){
             Iterator<DataStyle> itDs = this.getParameters().getDataStyleParam().iterator();
             Element e = this.tr;
@@ -759,7 +757,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
 
         //Generate the HTML file
-        generateHTMLFile(te, pcm);
+        te.generateHTMLFile(pcm);
         //Generate the archive file which contains the CSS & HTML files
         generateZIP();
 
@@ -770,16 +768,15 @@ public class HTMLExporterCustom extends HTMLExporter {
      * This function have 2 parameters, a PCM and the new data we want to use to generate the HTML file
      * and the pcm which contains the products matrix
      *
-     * @param dataResults
      * @param pcm
      */
-    public static void generateHTMLFile(HTMLExporterCustom dataResults, PCM pcm) {
+    public void generateHTMLFile(PCM pcm) {
         try {
             //create a new HTML file
             File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
             //Write inside the HTML file
             FileWriter fileWriter = new FileWriter(HTMLGeneratedFile);
-            fileWriter.write(dataResults.toHTML(pcm));
+            fileWriter.write(this.toHTML(pcm));
             //Flucing and closing streams
             fileWriter.flush();
             fileWriter.close();
