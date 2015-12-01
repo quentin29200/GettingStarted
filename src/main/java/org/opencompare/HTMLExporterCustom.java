@@ -1,3 +1,6 @@
+/*
+
+ */
 package org.opencompare;
 
 import java.io.File;
@@ -14,7 +17,6 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Document.OutputSettings;
 import org.opencompare.api.java.AbstractFeature;
 import org.opencompare.api.java.Cell;
 import org.opencompare.api.java.Feature;
@@ -25,20 +27,25 @@ import org.opencompare.api.java.PCMMetadata;
 import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
-import org.opencompare.api.java.io.PCMExporter;
+
 import org.opencompare.api.java.io.PCMLoader;
 import org.opencompare.api.java.value.*;
 
 import java.io.*;
-import java.util.Comparator;
+
 
 import java.util.*;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class HTMLExporterCustom extends HTMLExporter {
+    /**
+     * list of attributes
+     */
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
@@ -54,25 +61,47 @@ public class HTMLExporterCustom extends HTMLExporter {
     private int featureDepth;
     private Param parameters;
 
+    /**
+     *
+     * @return parameters
+     */
     public Param getParameters() {
         return parameters;
     }
 
+    /**
+     *
+     * @param parameters
+     */
     public void setParameters(Param parameters) {
         this.parameters = parameters;
     }
 
     //constructeur de la classe
+
+    /**
+     *
+     * @param fileName
+     */
     public HTMLExporterCustom(String fileName) {
         Param param = new Param(fileName);
         this.setParameters(param);
     }
 
-
+    /**
+     *
+     * @param container
+     * @return
+     */
     public String export(PCMContainer container) {
         return this.toHTML(container);
     }
 
+    /**
+     *
+     * @param pcm
+     * @return
+     */
     public String toHTML(PCM pcm) {
         this.settings.prettyPrint();
         this.doc = Jsoup.parse(this.templateFull);
@@ -86,23 +115,21 @@ public class HTMLExporterCustom extends HTMLExporter {
         return this.doc.outputSettings(this.settings).outerHtml();
     }
 
+    /**
+     *
+     * @param container
+     * @return contains
+     *
+     */
     public String toHTML(PCMContainer container) {
         this.metadata = container.getMetadata();
         return this.toHTML(container.getPcm());
     }
 
-    /*public String generateHTML(PCMContainer container) {
-        this.metadata = container.getMetadata();
-        //return this.toHTML(container.getPcm());
-
-        //modif by cheisda 9.11.2015
-        generatedHtml = this.toHTML(container.getPcm());
-        return generatedHtml;
-
-    }*/
-
-
-
+    /**
+     *
+     * @param pcm
+     */
     public void visit(PCM pcm) {
         if(this.getParameters().isShowPCMname()){
             Element title = this.body.appendElement("h1");
@@ -508,6 +535,7 @@ public class HTMLExporterCustom extends HTMLExporter {
             }//end cell iterator
     }
 
+
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
@@ -523,7 +551,10 @@ public class HTMLExporterCustom extends HTMLExporter {
     public static String sansAccents(String source) {
         return Normalizer.normalize(source, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
     }
-
+    /**
+     *
+     * @param feature
+     */
     public void visit(Feature feature) {
         //System.out.println(feature.getCells());
         if(this.getParameters().isReversePCM()){
@@ -582,6 +613,10 @@ public class HTMLExporterCustom extends HTMLExporter {
             th.text(feature.getName());
         }
     }
+    /**
+     *
+     * @param featureGroup
+     */
     public void visit(FeatureGroup featureGroup) {
         Element th = this.tr.appendElement("th");
         if(!featureGroup.getFeatures().isEmpty()) {
@@ -592,6 +627,10 @@ public class HTMLExporterCustom extends HTMLExporter {
         this.nextFeaturesToVisit.addAll(featureGroup.getFeatures());
     }
 
+    /**
+     *
+     * @param product
+     */
     public void visit(Product product) {
         this.tr.appendElement("th").text(product.getName());
         List cells = product.getCells();
@@ -613,6 +652,11 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
+    /**
+     *
+     * @param pcm
+     * @param table
+     */
     public void featuresRow(PCM pcm, Element table, Boolean bottom){
         // List of features
         LinkedList featuresToVisit = new LinkedList();
@@ -680,6 +724,11 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
     }
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 /*
 
@@ -695,20 +744,43 @@ public class HTMLExporterCustom extends HTMLExporter {
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
         System.out.println(te.toHTML(pcm));
         HTMLExporter testHtmlExporter = new HTMLExporter();
-        //System.out.println(testHtmlExporter.toHTML(pcm));
-
-        //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
-        //System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
-
-        //Il faut parcourir les dataStyle (il possède un attibut "name")
-        //System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
-        //System.out.println(te.toHTML(pcm));
 
 
         //modif by cheisda 24.11.2015
+        generateHTMLFile(te, pcm);
+
+        try {
+
+            //TO DO : create a tmp folder
+            //Output file
+            FileOutputStream fos = new FileOutputStream("src\\"+System.currentTimeMillis()/1000+"TestArchivePDL.zip");
+            //Creating the output file
+            ZipOutputStream zos = new ZipOutputStream(fos);
 
 
-        generateHTMLFile(te);
+            //getting files to zip them
+            String fileGeneratedHTMLPath = "src\\HTMLGenerated.html";
+            String fileGeneratedCSSPath = "src\\style.css";
+            //getting Files size
+            int CSSSize = getFileSize(fileGeneratedCSSPath);
+            int HTMLSize = getFileSize(fileGeneratedHTMLPath);
+            System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
+            int totalFilesSize = CSSSize+HTMLSize;
+
+
+            //Adding to archive File
+            addToZipFile(fileGeneratedHTMLPath,zos, totalFilesSize);
+            addToZipFile(fileGeneratedCSSPath,zos,totalFilesSize);
+
+            //closing the streamsH
+            zos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
 
@@ -717,30 +789,87 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     //Modif by Cheisda
 
-    public static void generateHTMLFile(HTMLExporterCustom test) {
-
-        File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
-
-
-        Writer writer = null;
-
+    /**
+     *
+     * @param dataResults
+     * @param pcm
+     */
+    public static void generateHTMLFile(HTMLExporterCustom dataResults, PCM pcm) {
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src\\HTMLGenerated.html"), "utf-8"));
-            writer.write(String.valueOf(test));
-        } catch (IOException ex) {
-            // report
-        } finally {
-            try {
-                writer.close();
-            } catch (Exception ex) {/*ignore*/}
+            File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
+            FileWriter fileWriter = new FileWriter(HTMLGeneratedFile);
+            fileWriter.write(dataResults.toHTML(pcm));
+            fileWriter.flush();
+            fileWriter.close();
+            if (HTMLGeneratedFile == null){
+                System.out.println("le fichier généré est vide");
+            } else {
+                System.out.println("Bravo le fichier HTML a bien été généré !");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
 
+    /**
+     *
+     * @param filename
+     * @return
+     */
+    public static int getFileSize(String filename) {
+        File file = new File(filename);
+        if (!file.exists() || !file.isFile()) {
+            System.out.println("File doesn\'t exist");
+            return -1;
+        }
+        return (int)file.length();
+    }
+
+    /**
+     *
+     * @param filePath
+     * @param zos
+     * @param filesSize
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    private static void addToZipFile(String filePath, ZipOutputStream zos,int filesSize)throws FileNotFoundException,IOException {
+        System.out.println("Writing '" + filePath + "' to zip file");
+
+        File file = new File(filePath);
+        FileInputStream fis = new FileInputStream(file);
+        ZipEntry zipEntry = new ZipEntry(filePath);
+        zos.putNextEntry(zipEntry);
+
+
+        byte[] bytes = new byte[filesSize];
+        int length;
+        while ((length = fis.read(bytes)) >= 0) {
+            zos.write(bytes, 0, length);
+        }
+
+        zos.closeEntry();
+        fis.close();
+    }
+
+    /**
+     *
+     * @param borneinf
+     * @param bornesup
+     * @param valuePCM
+     * @return
+     */
     private boolean rangeIn(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM >= borneinf) && (valuePCM <= bornesup));
     }
 
+    /**
+     * @param borneinf
+     * @param bornesup
+     * @param valuePCM
+     * @return
+     */
     private boolean rangeOut(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM <= borneinf) || (valuePCM >= bornesup));
     }

@@ -33,6 +33,6 @@
   "orderType":"asc",
   "orderColumn":"Isomax",
   "showBottomNameFeatures":false,
-  "reversePCM":false,
+  "reversePCM":true,
   "showPCMname":true
 }
