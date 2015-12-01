@@ -1,6 +1,3 @@
-/*
-
- */
 package org.opencompare;
 
 import java.io.File;
@@ -53,9 +50,9 @@ public class HTMLExporterCustom extends HTMLExporter {
     Document.OutputSettings settings = new Document.OutputSettings();
     private String templateFull = "<html>\n\t" +
             "<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"bootstrap/css/bootstrap.min.css\" media=\"screen\" />\n\t" +
+            "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n\t" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" media=\"screen\" />\n\t" +
-            "<script src=\"bootstrap/js/bootstrap.min.js\" />\n\t" +
+            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t" +
             "</head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
@@ -137,7 +134,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
         Element table = this.body.appendElement("table");
         //table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1");
-        table.attr("id", "matrix_" + pcm.getName().hashCode()).addClass("table-bordered").addClass("table-hover");
+        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
@@ -728,9 +725,6 @@ public class HTMLExporterCustom extends HTMLExporter {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-/*
-
- */
         // Load a PCM
         File pcmFile = new File("pcms/PCM4/comparison-nikon-dslr.pcm");
         //File paramFile = new File("pcms/PCM1/param1.json");
@@ -740,66 +734,35 @@ public class HTMLExporterCustom extends HTMLExporter {
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
-        System.out.println(te.toHTML(pcm));
-        HTMLExporter testHtmlExporter = new HTMLExporter();
 
-
-        //modif by cheisda 24.11.2015
+        //Generate the HTML file
         generateHTMLFile(te, pcm);
-
-        try {
-
-            //TO DO : create a tmp folder
-            //Output file
-            FileOutputStream fos = new FileOutputStream("src\\"+System.currentTimeMillis()/1000+"TestArchivePDL.zip");
-            //Creating the output file
-            ZipOutputStream zos = new ZipOutputStream(fos);
-
-
-            //getting files to zip them
-            String fileGeneratedHTMLPath = "src\\HTMLGenerated.html";
-            String fileGeneratedCSSPath = "src\\style.css";
-            //getting Files size
-            int CSSSize = getFileSize(fileGeneratedCSSPath);
-            int HTMLSize = getFileSize(fileGeneratedHTMLPath);
-            System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
-            int totalFilesSize = CSSSize+HTMLSize;
-
-
-            //Adding to archive File
-            addToZipFile(fileGeneratedHTMLPath,zos, totalFilesSize);
-            addToZipFile(fileGeneratedCSSPath,zos,totalFilesSize);
-
-            //closing the streamsH
-            zos.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
+        //Generate the archive file which contains the CSS & HTML files
+        generateZIP();
 
     }//fin main
 
 
-    //Modif by Cheisda
-
     /**
+     * This function have 2 parameters, a PCM and the new data we want to use to generate the HTML file
+     * and the pcm which contains the products matrix
      *
      * @param dataResults
      * @param pcm
      */
     public static void generateHTMLFile(HTMLExporterCustom dataResults, PCM pcm) {
         try {
+            //create a new HTML file
             File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
+            //Write inside the HTML file
             FileWriter fileWriter = new FileWriter(HTMLGeneratedFile);
             fileWriter.write(dataResults.toHTML(pcm));
+            //Flucing and closing streams
             fileWriter.flush();
             fileWriter.close();
-            if (HTMLGeneratedFile == null){
+
+            //Checking wether the file is created
+            if (HTMLGeneratedFile == null) {
                 System.out.println("le fichier généré est vide");
             } else {
                 System.out.println("Bravo le fichier HTML a bien été généré !");
@@ -810,7 +773,11 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
+
     /**
+     * Getting both files (CSS&HTML) size in order for the ZIP file to have the same size as the addition
+     * of both files sizes
+     * Return the size of a file
      *
      * @param filename
      * @return
@@ -821,35 +788,77 @@ public class HTMLExporterCustom extends HTMLExporter {
             System.out.println("File doesn\'t exist");
             return -1;
         }
-        return (int)file.length();
+        return (int) file.length();
     }
 
     /**
-     *
      * @param filePath
      * @param zos
      * @param filesSize
      * @throws FileNotFoundException
      * @throws IOException
+     * Adding file to the created ZIP file, it needs a output directory filePath, the zos parameter is the previous output ZIP file,
+     * and the fileSize is the size of the of the ZIP file we want to create
      */
-    private static void addToZipFile(String filePath, ZipOutputStream zos,int filesSize)throws FileNotFoundException,IOException {
+    private static void addToZipFile(String filePath, ZipOutputStream zos, int filesSize) throws FileNotFoundException, IOException {
         System.out.println("Writing '" + filePath + "' to zip file");
 
+        //Getting the concerned files
         File file = new File(filePath);
+
         FileInputStream fis = new FileInputStream(file);
+
+        //creating the zip file with the filePath
         ZipEntry zipEntry = new ZipEntry(filePath);
+
+        //implements an output stream filter for writing files in the ZIP file format
         zos.putNextEntry(zipEntry);
-
-
+        //defines the length of the ZIP file
         byte[] bytes = new byte[filesSize];
         int length;
         while ((length = fis.read(bytes)) >= 0) {
             zos.write(bytes, 0, length);
         }
 
+        //closing the streams
         zos.closeEntry();
         fis.close();
     }
+
+    /**
+     * This function generate the archive file composed by HTMLGenerated.html and styles.css
+     * The styles.css has previously been generated by the CSSExporter class
+     */
+    public static void generateZIP() {
+        try {
+            //Output file with a different name each time it's generated
+            FileOutputStream fos = new FileOutputStream("src\\" + System.currentTimeMillis() / 1000 + "TestArchivePDL.zip");
+            //Creating the output file
+            ZipOutputStream zos = new ZipOutputStream(fos);
+
+            //getting files to zip them
+            String fileGeneratedHTMLPath = "src\\HTMLGenerated.html";
+            String fileGeneratedCSSPath = "src\\style.css";
+            //getting files size
+            int CSSSize = getFileSize(fileGeneratedCSSPath);
+            int HTMLSize = getFileSize(fileGeneratedHTMLPath);
+            //System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
+            int totalFilesSize = CSSSize + HTMLSize;
+
+            //Adding files to archive ZIP
+            addToZipFile(fileGeneratedHTMLPath, zos, totalFilesSize);
+            addToZipFile(fileGeneratedCSSPath, zos, totalFilesSize);
+
+            //closing the streams
+            zos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      *
@@ -857,6 +866,9 @@ public class HTMLExporterCustom extends HTMLExporter {
      * @param bornesup
      * @param valuePCM
      * @return
+     *
+     * This function defines the range of values the user wants to highlight
+     * the hilighted values are between parameters : borneinf ans bornsup
      */
     private boolean rangeIn(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM >= borneinf) && (valuePCM <= bornesup));
@@ -867,6 +879,9 @@ public class HTMLExporterCustom extends HTMLExporter {
      * @param bornesup
      * @param valuePCM
      * @return
+     *
+     * This function defines the range of values the user wants to highlight
+     * the highlighted values are not between parameters : borneinf ans bornsup
      */
     private boolean rangeOut(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM <= borneinf) || (valuePCM >= bornesup));
