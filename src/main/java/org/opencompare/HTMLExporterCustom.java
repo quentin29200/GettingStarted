@@ -53,9 +53,9 @@ public class HTMLExporterCustom extends HTMLExporter {
     Document.OutputSettings settings = new Document.OutputSettings();
     private String templateFull = "<html>\n\t" +
             "<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"bootstrap/css/bootstrap.min.css\" media=\"screen\" />\n\t" +
+            "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n\t" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" media=\"screen\" />\n\t" +
-            "<script src=\"bootstrap/js/bootstrap.min.js\" />\n\t" +
+            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t" +
             "</head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
@@ -137,7 +137,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
         Element table = this.body.appendElement("table");
         //table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1");
-        table.attr("id", "matrix_" + pcm.getName().hashCode()).addClass("table-bordered").addClass("table-hover");
+        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
