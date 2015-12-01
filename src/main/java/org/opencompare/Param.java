@@ -21,6 +21,11 @@ public class Param {
     private boolean showBottomNameFeatures;
     private boolean reversePCM;
     private boolean showPCMname;
+
+    /**
+     * Create an object Param based on a JSon file
+     * @param json
+     */
     public Param(String json) {
         try {
             this.dataStyleParam = new ArrayList<DataStyle>();
@@ -91,31 +96,58 @@ public class Param {
         }
     }
 
+    /**
+     * @return dataStyleParam
+     * the collection of all datastyle
+     */
     public Collection<DataStyle> getDataStyleParam() {
         return dataStyleParam;
     }
 
+    /**
+     * @return orderType
+     *
+     */
     public String getOrderType() {
         return orderType;
     }
 
+    /**
+     * @return orderColumn
+     *
+     */
     public String getOrderColumn() {
         return orderColumn;
     }
 
+    /**
+     * @return showBottomNameFeatures
+     * boolean indicated if the features's name has to me show at the bottom
+     */
     public boolean isShowBottomNameFeatures() {
         return showBottomNameFeatures;
     }
 
+    /**
+     * @return reversePCM
+     * boolean indicated if the PCM has to be reverse
+     */
     public boolean isReversePCM() {
         return reversePCM;
     }
 
+    /**
+     * @return showPCMname
+     * boolean which defines if the name of the PCM has to be show
+     */
     public boolean isShowPCMname() {
         return showPCMname;
     }
 
-
+    /**
+     *
+     * @param arg
+     */
     public static void main (String [] arg){
         //test
         Param p = new Param("params1.json");

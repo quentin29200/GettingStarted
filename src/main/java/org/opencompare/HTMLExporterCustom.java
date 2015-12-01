@@ -90,7 +90,6 @@ public class HTMLExporterCustom extends HTMLExporter {
 
 
     public void visit(PCM pcm) {
-        this.body.appendElement("h1").text(pcm.getName());
         Element title = this.body.appendElement("h1");
         title.attr("id", "title").text(pcm.getName());
         Element table = this.body.appendElement("table");
