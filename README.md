@@ -10,11 +10,15 @@ The purpose of this project is to generate, from a comparison matrix template, a
 * add colors on certain types of value (color "yes" boolean value in green)
 * reverse the matrix (the products are displayed at the top instead of being displayed on the left side)
  
-In terms of web technology, it uses HTML5, CSS and Javascript. The solutions runs on any devices (cellphones, tablets, computers, etc ...). The procedure takes as input a comparison matrix, some configuration items an generates taticlly a set of HTML, CSS and Javascript files. The result is usable on any browser.
+In terms of web technology, it uses HTML5, CSS and Javascript. The solutions runs on any devices (cellphones, tablets, computers, etc ...). The procedure takes as input a comparison matrix, some configuration items an generates tatically a set of HTML, CSS and Javascript files. The result is usable on any browser.
 
 ### 2. Result
 
+Since the beginning of the project, we had developed several things. Indeed, firstly we had created 2 classes : Param and DataStyle. Objects of Param class contains a collection of DataStyle. This class permits to get JSON data with information for the coloration of the text or the background notably, from a JSON file created by us. For one JSON file, there are several DataStyle created owned to this structure. Param also contains attributes for describe the matrix; if the name of the PCM is shown, or if the features's name are shown. Those classes are used in an other class, CSSExporter - the second point developed, for the generation of css files. CSSExporter use Genesis librairy too.
 
+Thirdly, we had developed HTMLExporterCustom, which looks like HTMLExporter, already in the project. Used for the generation of HTML file, and the creation of the matrix from OpenCompare. Param class is an attribute in this class. Param permits here to put some coloration on the matrix, and on specific data, and also to change the look of the matrix. Futhermore, the exportation is working, the CSS file and the HTML file are generated in an archive zip.
+
+Functions had been developed to change matrix's aspect. Now, there is the possibility to reverse the matrix, and the products are at the bottom of the matrix, and the features are on the left. The name of the matrix can be show or not. If the matrix is big, the user can show the feature at the bottom of it. We can applied a sort by increasing or decreasing order on feature. Still on features, but with products too, functions rangein and rangeout permits to show data in accordance with a gap or with an exact value.
 
 ### 3. License
 
@@ -22,7 +26,11 @@ The project OpenCompare was, before the beginning of this project, accessible [h
 
 ### 4. Technologies used
 
+During this project, we worked on several technologies and several languages. In the one hand, the languages. Java was the base of our development process. It handles the back-end with the current management of the OpenCompare project. It is used to generate the custom parameters of the user in a JSON file and to create an archive to put all the files in. Then, the objective of the project was to generate HTML and CSS file so we handle those languages too. Finally, we used Markdown to maintain and update the current documentation.
 
+In the other hand, the technologies. To improve the productivity of all the developement team, IntelliJ was the chosen integrated development environment. It permits to handle easily the Maven project and it provides an internal VCS. Concretely, Maven was the most useful tool during this project. It manages goodly the dependencies and avoid some library version problems. To parse the JSON, we did it manually. We were thinking about using the JSOUP library but it wasn't working like we would like to. For the CSS, we used the GENESIS library. It creates CSS "module" to generate CSS classes thanks to a JSON parameter/file. It's powerful and easily maintanable. Then, we prefered JUnit to Mockito for the tests management because we seen it during our courses.
+
+We would like to add something about this. We know that we could automate tasks with Travis (which is already implemented in the project with its .travis.yml) but nobody of the team knew to use it or was able to implement it. The lack of time prevented us from using this tool that could, it's true, save us time.
 
 ### 5. Project architecture
 
