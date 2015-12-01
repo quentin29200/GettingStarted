@@ -61,7 +61,8 @@ The project OpenCompare was, before the beginning of this project, accessible [h
     </ul>
     <li>PCM3</li>
     <ul>
-      <li>info1.txt</li>
+      <li>index1.html</li>
+      <li>info3.txt</li>
       <li>param1.json</li>
       <li>param2.json</li>
       <li>param3.json</li>
@@ -70,11 +71,11 @@ The project OpenCompare was, before the beginning of this project, accessible [h
       <li>style2.css</li>
       <li>style3.css</li>
       <li>style4.css</li>
-      <li>tesssvtttt369852147.pcm</li>
+      <li>test-matrice-simple.pcm</li>
     </ul>
     <li>PCM4</li>
     <ul>
-      <li>info1.txt</li>
+      <li>info4.txt</li>
       <li>param1.json</li>
       <li>param2.json</li>
       <li>param3.json</li>
@@ -83,7 +84,7 @@ The project OpenCompare was, before the beginning of this project, accessible [h
       <li>style2.css</li>
       <li>style3.css</li>
       <li>style4.css</li>
-      <li>tesssvtttt369852147.pcm</li>
+      <li>comparison-nikon-dslr.pcm</li>
     </ul>
     <li>TEST</li>
     <ul>
@@ -92,14 +93,46 @@ The project OpenCompare was, before the beginning of this project, accessible [h
       <li>param2.json</li>
       <li>param3.json</li>
       <li>param4.json</li>
-      <li>style1.css</li>
-      <li>style2.css</li>
-      <li>style3.css</li>
-      <li>style4.css</li>
       <li>tesssvtttt369852147.pcm</li>
     </ul>
   </ul>
   <li>src/</li>
+  <ul>
+    <li>main/</li>
+    <ul>
+      <li>java/</li>
+      <ul>
+        <li>org/</li>
+        <ul>
+          <li>opencompare/</li>
+          <ul>
+            <li>CSSExporter.java</li>
+            <li>DataStyle.java</li>
+            <li>HTMLExporterCustom.java</li>
+            <li>MyPCMPrinter.java</li>
+            <li>Param.java</li>
+          </ul>
+        </ul>
+      </ul>
+    </ul>
+    <li>test/</li>
+    <ul>
+      <li>java/</li>
+      <ul>
+        <li>org/</li>
+        <ul>
+          <li>opencompare/</li>
+          <ul>
+            <li>MyPCMPrinterTest.java</li>
+            <li>TestExport.java</li>
+            <li>TestParam.java</li>
+          </ul>
+        </ul>
+      </ul>
+    </ul>
+    <li>HTMLGenerated.html</li>
+    <li>style.css</li>
+  </ul>
   <li>target/</li>
   <ul>
     <li>classes/</li>
@@ -143,21 +176,5 @@ The project OpenCompare was, before the beginning of this project, accessible [h
   <li>pom.xml</li>
   <li>README.md</li>
 </ul>
-
-        * generated-sources/
-            * annotations
-        * generated-test-sources/
-            * test-annotations
-        * test-classes/
-            * org/
-                * opencompare/
-                    * MyPCMPrinterTest.class
-                    * TestExport.class
-    * .gitignore
-    * .travis.yml
-    * getting-started.iml
-    * LICENSE
-    * pom.xml
-    * README.md
 
 ### 6. Deployment instructions
