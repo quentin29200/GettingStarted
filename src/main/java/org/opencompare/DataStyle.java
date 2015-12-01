@@ -12,7 +12,16 @@ public class DataStyle {
     private int bornesup;
     private int width;
 
-    // Constructor
+    /**
+     * Create a DataStyle object
+     * @param name
+     * @param bgcolor
+     * @param txtcolor
+     * @param value
+     * @param borneinf
+     * @param bornesup
+     * @param width
+     */
     public DataStyle(String name, String bgcolor, String txtcolor, int value, int borneinf, int bornesup, int width) {
         this.name = name;
         this.bgcolor = bgcolor;
@@ -24,36 +33,67 @@ public class DataStyle {
     }
 
 
-    // Getter
+    /**
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return bgcolor
+     */
     public String getBgcolor() {
         return bgcolor;
     }
 
+    /**
+     *
+     * @return txtcolor
+     */
     public String getTxtcolor() {
         return txtcolor;
     }
 
+    /**
+     *
+     * @return value
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     *
+     * @return bonrneinf
+     */
     public int getBorneinf() {
         return borneinf;
     }
 
+    /**
+     *
+     * @return bornesup
+     */
     public int getBornesup() {
         return bornesup;
     }
 
+    /**
+     *
+     * @return width
+     */
     public int getWidth() {
         return width;
     }
 
-    // Pour les tests
+    /**
+     *
+     * @return string
+     * the list of attributes of DataStyle class
+     */
     public String toString() {
         return "DataStyle{" +
                 "name='" + name + '\'' +
