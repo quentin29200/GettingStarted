@@ -12,11 +12,11 @@
         "width": 120
       }
     ],
-  "orderType":"asc",
-  "orderColumn":"Feature 1",
+  "orderType":"desc",
+  "orderColumn":"Product",
   "showBottomNameFeatures":false,
-  "reversePCM":false,
-  "showPCMname":false
+  "reversePCM":true,
+  "showPCMname":true
 }
 
 

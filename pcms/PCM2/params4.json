@@ -28,8 +28,8 @@
     }
   ],
   "orderType":"asc",
-  "orderColumn":"",
-  "showBottomNameFeatures":true,
-  "reversePCM":true,
+  "orderColumn":"Product",
+  "showBottomNameFeatures":false,
+  "reversePCM":false,
   "showPCMname":true
 }

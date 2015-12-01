@@ -8,11 +8,31 @@
     {
       "name": "GPSstyle",
       "width": 250
+    },
+    {
+      "name": "rangein1",
+      "bgcolor": "#ccffcc",
+      "txtcolor": "#000000",
+      "borneinf": 0,
+      "bornesup": 20
+    },
+    {
+      "name": "rangein2",
+      "bgcolor": "#4d88ff",
+      "txtcolor": "#ffffff",
+      "borneinf": 1000,
+      "bornesup": 1600
+    },
+    {
+      "name": "compare1",
+      "bgcolor": "#58D3F7",
+      "txtcolor": "#CCCCCC",
+      "value": 12800
     }
   ],
   "orderType":"asc",
-  "orderColumn":"",
+  "orderColumn":"Isomax",
   "showBottomNameFeatures":false,
-  "reversePCM":true,
+  "reversePCM":false,
   "showPCMname":true
 }

@@ -1,8 +1,8 @@
 {
   "dataStyle":[],
-  "orderType":"desc",
-  "orderColumn":"Language",
+  "orderType":"",
+  "orderColumn":"",
   "showBottomNameFeatures":true,
-  "reversePCM":false,
+  "reversePCM":true,
   "showPCMname":true
 }
