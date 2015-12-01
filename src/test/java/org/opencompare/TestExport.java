@@ -26,7 +26,7 @@ public class TestExport {
     public  void testExport1() throws IOException {
         //TESTff
         // Path of Params
-        String p = "PCM1\\params1.json";
+        String p = "TEST\\params1.json";
 
         // Load PCM
         File pcmFile = new File("pcms/TEST/tesssvtttt369852147.pcm");
@@ -64,14 +64,38 @@ public class TestExport {
 
         // ExportToHTML
         HTMLExporterCustom exporter = new HTMLExporterCustom(p);
-        exporter.toHTML(pcm);
+        exporter.generateHTMLFile(pcm);
         // Tester le rendu du HTML
+
+        File testhtml = new File("pcms/TEST/index1.html");
+        File generatehtml = new File("src/HTMLGenerated.html");
+        assertNotNull(testhtml);
+        assertNotNull(generatehtml);
+
+        BufferedReader br3 = new BufferedReader(new FileReader(testcss));
+        String ligne3 = null;
+        String testhtml_s="";
+        while ((ligne3=br3.readLine())!=null){
+            testhtml_s+=ligne3+"\n";
+        }
+        br3.close();
+
+        BufferedReader br4 = new BufferedReader(new FileReader(generatecss));
+        String ligne4 = null;
+        String generatehtml_s="";
+        while ((ligne4=br4.readLine())!=null){
+            generatehtml_s+=ligne4+"\n";
+        }
+        br4.close();
+
+        assertTrue(testhtml_s.equals(generatehtml_s));
+
     }
     @Test
     public  void testExport2() throws IOException {
         //TESTff
         // Path of Params
-        String p = "PCM1\\params2.json";
+        String p = "TEST\\params2.json";
 
         // Load PCM
         File pcmFile = new File("pcms/TEST/tesssvtttt369852147.pcm");
@@ -116,7 +140,7 @@ public class TestExport {
     public  void testExport3() throws IOException {
         //TESTff
         // Path of Params
-        String p = "PCM1\\params3.json";
+        String p = "TEST\\params3.json";
 
         // Load PCM
         File pcmFile = new File("pcms/TEST/tesssvtttt369852147.pcm");
@@ -161,7 +185,7 @@ public class TestExport {
     public  void testExport4() throws IOException {
         //TESTff
         // Path of Params
-        String p = "PCM1\\params4.json";
+        String p = "TEST\\params4.json";
 
         // Load PCM
         File pcmFile = new File("pcms/TEST/tesssvtttt369852147.pcm");
