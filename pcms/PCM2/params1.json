@@ -6,7 +6,7 @@
       "txtcolor": "#000000"
     },
     {
-      "name": "Licencestyle",
+      "name": "Inputstyle",
       "bgcolor": "#3B240B",
       "txtcolor": "#01DF74"
     },
@@ -15,11 +15,17 @@
       "bgcolor": "#FE2EF7",
       "txtcolor": "#122A0A",
       "width": 120
+    },
+    {
+      "name": "Productstyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A",
+      "width": 300
     }
   ],
-  "orderType":"desc",
-  "orderColumn":"Licence",
+  "orderType":"asc",
+  "orderColumn":"Language",
   "showBottomNameFeatures":false,
-  "reversePCM":false,
-  "showPCMname":false
+  "reversePCM":true,
+  "showPCMname":true
 }
