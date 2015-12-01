@@ -48,10 +48,6 @@ We would like to add something about this. We know that we could automate tasks 
       <li>param2.json</li>
       <li>param3.json</li>
       <li>param4.json</li>
-      <li>style1.css</li>
-      <li>style2.css</li>
-      <li>style3.css</li>
-      <li>style4.css</li>
       <li>tesssvtttt369852147.pcm</li>
     </ul>
     <li>PCM2</li>
@@ -62,10 +58,6 @@ We would like to add something about this. We know that we could automate tasks 
       <li>param2.json</li>
       <li>param3.json</li>
       <li>param4.json</li>
-      <li>style1.css</li>
-      <li>style2.css</li>
-      <li>style3.css</li>
-      <li>style4.css</li>
     </ul>
     <li>PCM3</li>
     <ul>
@@ -75,10 +67,6 @@ We would like to add something about this. We know that we could automate tasks 
       <li>param2.json</li>
       <li>param3.json</li>
       <li>param4.json</li>
-      <li>style1.css</li>
-      <li>style2.css</li>
-      <li>style3.css</li>
-      <li>style4.css</li>
       <li>test-matrice-simple.pcm</li>
     </ul>
     <li>PCM4</li>
@@ -96,6 +84,13 @@ We would like to add something about this. We know that we could automate tasks 
     </ul>
     <li>TEST</li>
     <ul>
+      <li>TESTCSS</li>
+      <ul>
+        <li>style1.css</li>
+        <li>style2.css</li>
+        <li>style3.css</li>
+        <li>style4.css</li>
+      </ul>
       <li>info1.txt</li>
       <li>param1.json</li>
       <li>param2.json</li>
@@ -187,7 +182,7 @@ We would like to add something about this. We know that we could automate tasks 
 
 ### 6. Deployment instructions
 
-
+From the beginning of the project, we were told that, if the project was going well, it could be possible to integrate our work to the OpenCompare project. To do this, it will be necessary to develop an interface which will permits to the user to customize the matrix. It wasn't included in the things asked to this part of the work. When the user will submit his customization, the back-end will have to generate the JSON file corresponding to the parameters. Then, our main will get it and generate the files. The server will juste have to send thoses files to the user.
 
 ### 7. Versioning
 
