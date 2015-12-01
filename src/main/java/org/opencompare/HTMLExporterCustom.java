@@ -13,7 +13,6 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Document.OutputSettings;
 import org.opencompare.api.java.AbstractFeature;
 import org.opencompare.api.java.Cell;
 import org.opencompare.api.java.Feature;
@@ -24,21 +23,19 @@ import org.opencompare.api.java.PCMMetadata;
 import org.opencompare.api.java.Product;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import org.opencompare.api.java.io.HTMLExporter;
-import org.opencompare.api.java.io.PCMExporter;
+
 import org.opencompare.api.java.io.PCMLoader;
 import org.opencompare.api.java.value.*;
 
 import java.io.*;
-import java.util.Comparator;
 
-import java.util.*;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class HTMLExporterCustom extends HTMLExporter {
+    /**
+     * list of attributes
+     */
     private Document doc;
     private Element body;
     private PCMMetadata metadata;
@@ -49,25 +46,47 @@ public class HTMLExporterCustom extends HTMLExporter {
     private int featureDepth;
     private Param parameters;
 
+    /**
+     *
+     * @return parameters
+     */
     public Param getParameters() {
         return parameters;
     }
 
+    /**
+     *
+     * @param parameters
+     */
     public void setParameters(Param parameters) {
         this.parameters = parameters;
     }
 
     //constructeur de la classe
+
+    /**
+     *
+     * @param fileName
+     */
     public HTMLExporterCustom(String fileName) {
         Param param = new Param(fileName);
         setParameters(param);
     }
 
-
+    /**
+     *
+     * @param container
+     * @return
+     */
     public String export(PCMContainer container) {
         return this.toHTML(container);
     }
 
+    /**
+     *
+     * @param pcm
+     * @return
+     */
     public String toHTML(PCM pcm) {
         this.settings.prettyPrint();
         this.doc = Jsoup.parse(this.templateFull);
@@ -81,16 +100,22 @@ public class HTMLExporterCustom extends HTMLExporter {
         return this.doc.outputSettings(this.settings).outerHtml();
     }
 
+    /**
+     *
+     * @param container
+     * @return contains
+     *
+     */
     public String toHTML(PCMContainer container) {
         this.metadata = container.getMetadata();
         return this.toHTML(container.getPcm());
     }
 
-
-
-
+    /**
+     *
+     * @param pcm
+     */
     public void visit(PCM pcm) {
-        this.body.appendElement("h1").text(pcm.getName());
         Element title = this.body.appendElement("h1");
         title.attr("id", "title").text(pcm.getName());
         Element table = this.body.appendElement("table");
@@ -161,6 +186,10 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
+    /**
+     *
+     * @param feature
+     */
     public void visit(Feature feature) {
         Element th = this.tr.appendElement("th");
         if(this.featureDepth > 1) {
@@ -170,6 +199,10 @@ public class HTMLExporterCustom extends HTMLExporter {
         th.text(feature.getName());
     }
 
+    /**
+     *
+     * @param featureGroup
+     */
     public void visit(FeatureGroup featureGroup) {
         Element th = this.tr.appendElement("th");
         if(!featureGroup.getFeatures().isEmpty()) {
@@ -180,6 +213,10 @@ public class HTMLExporterCustom extends HTMLExporter {
         this.nextFeaturesToVisit.addAll(featureGroup.getFeatures());
     }
 
+    /**
+     * @param product
+     * @param ds
+     */
     public void visit(Product product, DataStyle ds) {
         this.tr.appendElement("th").text(product.getName());
         List cells = product.getCells();
@@ -206,6 +243,10 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
+    /**
+     *
+     * @param product
+     */
     public void visit(Product product) {
         this.tr.appendElement("th").text(product.getName());
         List cells = product.getCells();
@@ -230,6 +271,11 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
+    /**
+     *
+     * @param pcm
+     * @param table
+     */
     public void featuresRow(PCM pcm, Element table){
         // List of features
         LinkedList featuresToVisit = new LinkedList();
@@ -283,6 +329,11 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
     }
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 /*
 
@@ -343,6 +394,11 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     //Modif by Cheisda
 
+    /**
+     *
+     * @param dataResults
+     * @param pcm
+     */
     public static void generateHTMLFile(HTMLExporterCustom dataResults, PCM pcm) {
         try {
             File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
@@ -361,6 +417,11 @@ public class HTMLExporterCustom extends HTMLExporter {
 
     }
 
+    /**
+     *
+     * @param filename
+     * @return
+     */
     public static int getFileSize(String filename) {
         File file = new File(filename);
         if (!file.exists() || !file.isFile()) {
@@ -370,6 +431,14 @@ public class HTMLExporterCustom extends HTMLExporter {
         return (int)file.length();
     }
 
+    /**
+     *
+     * @param filePath
+     * @param zos
+     * @param filesSize
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     private static void addToZipFile(String filePath, ZipOutputStream zos,int filesSize)throws FileNotFoundException,IOException {
         System.out.println("Writing '" + filePath + "' to zip file");
 
@@ -389,10 +458,23 @@ public class HTMLExporterCustom extends HTMLExporter {
         fis.close();
     }
 
+    /**
+     *
+     * @param borneinf
+     * @param bornesup
+     * @param valuePCM
+     * @return
+     */
     private boolean rangeIn(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM >= borneinf) && (valuePCM <= bornesup));
     }
 
+    /**
+     * @param borneinf
+     * @param bornesup
+     * @param valuePCM
+     * @return
+     */
     private boolean rangeOut(int borneinf, int bornesup, int valuePCM) {
         return ((valuePCM <= borneinf) || (valuePCM >= bornesup));
     }

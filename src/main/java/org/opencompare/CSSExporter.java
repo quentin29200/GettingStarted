@@ -19,41 +19,64 @@ public class CSSExporter {
     private Genesis genesis;
     private List<CssModule> modules = new ArrayList<CssModule>();
 
+    /**
+     *
+     * @return modules
+     */
     public List<CssModule> getModules(){
         return modules;
     }
 
+    /**
+     *
+     * @return genesis
+     */
     public Genesis getGenesis() {
         return genesis;
     }
 
+    /**
+     *
+     * @param genesis
+     */
     public void setGenesis(Genesis genesis) {
         this.genesis = genesis;
     }
 
+    /**
+     *
+     * @return parameters
+     */
     public Param getParameters() {
 
         return parameters;
     }
 
+    /**
+     *
+     * @param parameters
+     */
     public void setParameters(Param parameters) {
         this.parameters = parameters;
     }
 
-
-
+    /**
+     * Create CSSExporter
+     * @param fileName
+     */
     public CSSExporter(String fileName){
         Param tmp = new Param(fileName);
         setParameters(tmp);
     }
 
+    /**
+     * Change the datastyle document to CSS document
+     */
     private void dataStyleToCSS() {
         Collection<DataStyle> dataTypeCollection;
         dataTypeCollection = this.getParameters().getDataStyleParam();
         CssModule CSS_MODULE_TMP;
         for(DataStyle tmp : dataTypeCollection){
-            System.out.println(tmp);
-
             CSS_MODULE_TMP = new CssModule() {
                 @Override public void configure(CssBuilder out) {
                     if(tmp.getWidth() != 0){
@@ -74,6 +97,9 @@ public class CSSExporter {
         }
     }
 
+    /**
+     * Permits generation of the css file
+     */
     public void generate(){
         this.dataStyleToCSS();
         Genesis.Builder build = Genesis.builder();
@@ -95,8 +121,12 @@ public class CSSExporter {
 
     public static void main(String[] args) {
         CSSExporter tmp = new CSSExporter("PCM1\\params1.json");
-        tmp.generate();
-
+        try {
+            tmp.generate();
+        }
+        catch (Exception e){
+            System.out.println("Exception : Erreur dans le JSon");
+        }
         //Print CSS
         String str = tmp.getGenesis().getCss();
         System.out.println(str);
