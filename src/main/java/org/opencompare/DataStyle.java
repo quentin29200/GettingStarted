@@ -34,56 +34,56 @@ public class DataStyle {
 
 
     /**
-     *
      * @return name
+     * the name in the JSon file
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
      * @return bgcolor
+     * the background color attributed in the JSon file
      */
     public String getBgcolor() {
         return bgcolor;
     }
 
     /**
-     *
      * @return txtcolor
+     * the text color defined in the JSon file
      */
     public String getTxtcolor() {
         return txtcolor;
     }
 
     /**
-     *
      * @return value
+     * the value in the JSon file
      */
     public int getValue() {
         return value;
     }
 
     /**
-     *
      * @return bonrneinf
+     * the lower limit of the data defined in the JSon file
      */
     public int getBorneinf() {
         return borneinf;
     }
 
     /**
-     *
      * @return bornesup
+     * the higher limit of the data defined in the JSon file
      */
     public int getBornesup() {
         return bornesup;
     }
 
     /**
-     *
      * @return width
+     * the width in the JSon file
      */
     public int getWidth() {
         return width;
