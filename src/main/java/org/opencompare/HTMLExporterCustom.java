@@ -1,3 +1,6 @@
+/*
+
+ */
 package org.opencompare;
 
 import java.io.File;
@@ -83,15 +86,6 @@ public class HTMLExporterCustom extends HTMLExporter {
         return this.toHTML(container.getPcm());
     }
 
-    /*public String generateHTML(PCMContainer container) {
-        this.metadata = container.getMetadata();
-        //return this.toHTML(container.getPcm());
-
-        //modif by cheisda 9.11.2015
-        generatedHtml = this.toHTML(container.getPcm());
-        return generatedHtml;
-
-    }*/
 
 
 
@@ -304,18 +298,10 @@ public class HTMLExporterCustom extends HTMLExporter {
         HTMLExporterCustom te = new HTMLExporterCustom("PCM1/params1.json");
         System.out.println(te.toHTML(pcm));
         HTMLExporter testHtmlExporter = new HTMLExporter();
-        //System.out.println(testHtmlExporter.toHTML(pcm));
-
-        //System.out.println("HTML généré : "+ testHtmlExporter.toHTML(pcm));
-        //System.out.println("Order type récupéré : " + testHTML.getParameters().getOrderType());
-
-        //Il faut parcourir les dataStyle (il possède un attibut "name")
-        //System.out.println("DataStyle récupéré : " + testHTML.getParameters().getDataStyleParam());
-        //System.out.println(te.toHTML(pcm));
 
 
         //modif by cheisda 24.11.2015
-        //generateHTMLFile(te, pcm);
+        generateHTMLFile(te, pcm);
 
         try {
 
