@@ -1,6 +1,8 @@
 @charset 'UTF-8';
-.Storagemediastyle{background:#58d3f7;color:#58d3f7}
-.GPSstyle{width:250px}
+.Prixstyle{background:#fcc;color:#000}
+.modelestyle{background:#3b240b;color:#01df74}
 .rangein1{background:#cfc;color:#000}
 .rangein2{background:#4d88ff;color:#fff}
-.compare1{background:#58d3f7;color:#ccc}
+.rangein3{background:#fff;color:#000}
+.compare1{background:#f00;color:#ccc}
+.Productstyle{width:120px}

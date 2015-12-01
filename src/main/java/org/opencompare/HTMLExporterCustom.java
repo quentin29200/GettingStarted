@@ -492,7 +492,6 @@ public class HTMLExporterCustom extends HTMLExporter {
                             }else{
                                 tmp = Integer.parseInt(cell.getContent());
                                 if (tmp == ds.getValue()) {
-                                    System.out.println("fge");
                                     td = td.appendElement("td").addClass(ds.getName());
                                     break;
                                 }
@@ -556,7 +555,6 @@ public class HTMLExporterCustom extends HTMLExporter {
      * @param feature
      */
     public void visit(Feature feature) {
-        //System.out.println(feature.getCells());
         if(this.getParameters().isReversePCM()){
             Iterator<DataStyle> itDs = this.getParameters().getDataStyleParam().iterator();
             Element e = this.tr;
