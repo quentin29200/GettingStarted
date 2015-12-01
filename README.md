@@ -178,3 +178,13 @@ The project OpenCompare was, before the beginning of this project, accessible [h
 </ul>
 
 ### 6. Deployment instructions
+
+
+
+### 7. Versioning
+
+<ul>
+  <li>1.0 : First functional release with export of two files (HTML+CSS) separately</li>
+  <li>1.1 : Add reverse matrice feature and some test files</li>
+  <li>1.2 : Correct some bug test and it exports in an archive</li>
+</ul>
