@@ -98,7 +98,7 @@ public class CSSExporter {
     }
 
     /**
-     * Permits generation on the css document
+     * Permits generation of the css file
      */
     public void generate(){
         this.dataStyleToCSS();
