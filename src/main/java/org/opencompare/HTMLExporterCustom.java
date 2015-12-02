@@ -1,7 +1,3 @@
-/**
- * This class generate an HTML file and put in a ZIP file with a style.css
- * , previously generated with the CSSExporter class.
- */
 package org.opencompare;
 
 import java.io.File;
@@ -54,9 +50,9 @@ public class HTMLExporterCustom extends HTMLExporter {
     Document.OutputSettings settings = new Document.OutputSettings();
     private String templateFull = "<html>\n\t" +
             "<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t" +
-            "<link rel=\"stylesheet\" type=\"text/css\" href=\"bootstrap/css/bootstrap.min.css\" media=\"screen\" />\n\t" +
+            "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n\t" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" media=\"screen\" />\n\t" +
-            "<script src=\"bootstrap/js/bootstrap.min.js\" />\n\t" +
+            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t" +
             "</head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
@@ -138,7 +134,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
         Element table = this.body.appendElement("table");
         //table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1");
-        table.attr("id", "matrix_" + pcm.getName().hashCode()).addClass("table-bordered").addClass("table-hover");
+        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
@@ -493,7 +489,6 @@ public class HTMLExporterCustom extends HTMLExporter {
                             }else{
                                 tmp = Integer.parseInt(cell.getContent());
                                 if (tmp == ds.getValue()) {
-                                    System.out.println("fge");
                                     td = td.appendElement("td").addClass(ds.getName());
                                     break;
                                 }
@@ -557,7 +552,6 @@ public class HTMLExporterCustom extends HTMLExporter {
      * @param feature
      */
     public void visit(Feature feature) {
-        //System.out.println(feature.getCells());
         if(this.getParameters().isReversePCM()){
             Iterator<DataStyle> itDs = this.getParameters().getDataStyleParam().iterator();
             Element e = this.tr;
@@ -742,7 +736,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
 
         //Generate the HTML file
-        generateHTMLFile(te, pcm);
+        te.generateHTMLFile(pcm);
         //Generate the archive file which contains the CSS & HTML files
         generateZIP();
 
@@ -750,17 +744,18 @@ public class HTMLExporterCustom extends HTMLExporter {
 
 
     /**
-     * This function have 2 parameters, a PCM, which contains the products matrix and the new data we want to use in order to generate the HTML file
-     * @param dataResults
+     * This function have 2 parameters, a PCM and the new data we want to use to generate the HTML file
+     * and the pcm which contains the products matrix
+     *
      * @param pcm
      */
-    public static void generateHTMLFile(HTMLExporterCustom dataResults, PCM pcm) {
+    public void generateHTMLFile(PCM pcm) {
         try {
             //create a new HTML file
             File HTMLGeneratedFile = new File("src\\HTMLGenerated.html");
             //Write inside the HTML file
             FileWriter fileWriter = new FileWriter(HTMLGeneratedFile);
-            fileWriter.write(dataResults.toHTML(pcm));
+            fileWriter.write(this.toHTML(pcm));
             //Flucing and closing streams
             fileWriter.flush();
             fileWriter.close();
