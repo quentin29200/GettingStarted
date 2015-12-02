@@ -1,3 +1,7 @@
+/**
+ * Javadoc to do
+ */
+
 package org.opencompare;
 
 import java.io.File;
@@ -133,7 +137,7 @@ public class HTMLExporterCustom extends HTMLExporter {
             title.attr("id", "title").text(pcm.getName());
         }
         Element table = this.body.appendElement("table");
-        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
+        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
@@ -859,18 +863,18 @@ public class HTMLExporterCustom extends HTMLExporter {
             //getting files to zip them
             String fileGeneratedHTMLPath = "src\\HTMLGenerated.html";
             String fileGeneratedCSSPath = "src\\style.css";
-            String fileGeneratedBootStrapPath = "src\\nameBootstrap.css";
+            //String fileGeneratedBootStrapPath = "src\\nameBootstrap.css";
             //getting files size
             int CSSSize = getFileSize(fileGeneratedCSSPath);
             int HTMLSize = getFileSize(fileGeneratedHTMLPath);
-            int BootStrapSize = getFileSize(fileGeneratedBootStrapPath);
+            //int BootStrapSize = getFileSize(fileGeneratedBootStrapPath);
             //System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
-            int totalFilesSize = CSSSize + HTMLSize + BootStrapSize;
+            int totalFilesSize = CSSSize + HTMLSize; //+ BootStrapSize;
 
             //Adding files to archive ZIP
             addToZipFile(fileGeneratedHTMLPath, zos, totalFilesSize);
             addToZipFile(fileGeneratedCSSPath, zos, totalFilesSize);
-            addToZipFile(fileGeneratedBootStrapPath, zos, totalFilesSize);
+            //addToZipFile(fileGeneratedBootStrapPath, zos, totalFilesSize);
 
             //closing the streams
             zos.close();
