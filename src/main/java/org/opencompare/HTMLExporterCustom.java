@@ -124,7 +124,7 @@ public class HTMLExporterCustom extends HTMLExporter {
     }
 
     /**
-     *
+     *Append content into table element
      * @param pcm
      */
     public void visit(PCM pcm) {
@@ -133,7 +133,6 @@ public class HTMLExporterCustom extends HTMLExporter {
             title.attr("id", "title").text(pcm.getName());
         }
         Element table = this.body.appendElement("table");
-        //table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1");
         table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
@@ -198,10 +197,8 @@ public class HTMLExporterCustom extends HTMLExporter {
                         }
                         Iterator var3 = po.getCells().iterator();
                         this.cellAffectClass(var3);
-                    }
-                }
-
-
+                    }//While end
+                }//Else end
             }else{
                 this.affectRow(var5, table);
             }
@@ -213,6 +210,11 @@ public class HTMLExporterCustom extends HTMLExporter {
         }
     }
 
+    /**
+     * Loop through product list and append them to body
+     * @param it : Iterator on products list
+     * @param table : Element containing table
+     */
     public void affectRow(Iterator it, Element table){
         boolean isReverse = this.getParameters().isReversePCM();
         while(it.hasNext()) {
@@ -244,13 +246,18 @@ public class HTMLExporterCustom extends HTMLExporter {
                 if(b){
                     this.tr.appendElement("td").appendElement("span").text(var7.getName());
                 }
-            }
+            }//Else end
             Iterator var3 = cells.iterator();
             this.cellAffectClass(var3);
 
         }//End of product iterator
     }
 
+    /**
+     * Loop through a product list and sort the Feature
+     * @param it : Iterator on a product list
+     * @return Sorted list of product
+     */
     public List cellSort(Iterator it){
         List<ProductOrder> l = new ArrayList<ProductOrder>();
         while(it.hasNext()){
@@ -377,18 +384,23 @@ public class HTMLExporterCustom extends HTMLExporter {
 
                                 }
                                 indexItt++;
-                            }
+                            }//End Else
 
-                        }
-                    }
-                }
+                        }//End While
+                    }//End Else
+                }//End if
 
-            }
+            }//End While
 
         }
         return l;
     }
 
+    /**
+     * Loop through a product list and sort the Product column
+     * @param it : Iterator on product list
+     * @return Sorted product list
+     */
     public List productSort(Iterator it){
         List<Product> l = new ArrayList<Product>();
         while (it.hasNext()) {
@@ -431,6 +443,10 @@ public class HTMLExporterCustom extends HTMLExporter {
         return l;
     }
 
+    /**
+     * Loop through cell list - Add CSS classes and append to body
+     * @param it : Iterator on cell list
+     */
     public void cellAffectClass(Iterator it){
         boolean isReverse = this.getParameters().isReversePCM();
             while(it.hasNext()) {
@@ -531,7 +547,11 @@ public class HTMLExporterCustom extends HTMLExporter {
             }//end cell iterator
     }
 
-
+    /**
+     * Check if string is Integer
+     * @param s
+     * @return boolean true if string is integer
+     */
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
@@ -548,7 +568,7 @@ public class HTMLExporterCustom extends HTMLExporter {
         return Normalizer.normalize(source, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
     }
     /**
-     *
+     *Append feature to body
      * @param feature
      */
     public void visit(Feature feature) {
@@ -648,9 +668,10 @@ public class HTMLExporterCustom extends HTMLExporter {
     }
 
     /**
-     *
+     * Append features row
      * @param pcm
-     * @param table
+     * @param table : Element
+     * @param bottom : boolean append bottom features if true
      */
     public void featuresRow(PCM pcm, Element table, Boolean bottom){
         // List of features
