@@ -52,8 +52,8 @@ public class HTMLExporterCustom extends HTMLExporter {
             "<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t" +
             "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n\t" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" media=\"screen\" />\n\t" +
-            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t" +
-            "</head>\n\t<body>\n\t</body>\n</html>";
+            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t"; //+
+           // "<html></head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
     private Param parameters;
@@ -132,8 +132,10 @@ public class HTMLExporterCustom extends HTMLExporter {
             Element title = this.body.appendElement("h1");
             title.attr("id", "title").text(pcm.getName());
         }
+
+
         Element table = this.body.appendElement("table");
-        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
+        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
@@ -755,6 +757,8 @@ public class HTMLExporterCustom extends HTMLExporter {
         PCM pcm = loader.load(pcmFile).get(0).getPcm();
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
+
+        System.out.println(te.toHTML(pcm));
 
         //Generate the HTML file
         te.generateHTMLFile(pcm);
