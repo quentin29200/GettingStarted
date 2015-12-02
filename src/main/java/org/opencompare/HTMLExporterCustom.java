@@ -41,7 +41,7 @@ import java.util.zip.ZipOutputStream;
 
 public class HTMLExporterCustom extends HTMLExporter {
     /**
-     * list of attributes 
+     * list of attributes
      */
     private Document doc;
     private Element body;
