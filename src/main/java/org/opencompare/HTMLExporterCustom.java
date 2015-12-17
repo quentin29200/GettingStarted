@@ -137,8 +137,8 @@ public class HTMLExporterCustom extends HTMLExporter {
             title.attr("id", "title").text(pcm.getName());
         }
 
-
-        Element table = this.body.appendElement("table");
+        this.body.appendElement("div").addClass("table-container").addClass("center-block");
+        Element table = this.body.getElementsByTag("div").first().appendElement("table");
         table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();

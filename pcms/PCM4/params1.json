@@ -15,7 +15,7 @@
   "orderType":"asc",
   "orderColumn":"GPS",
   "showBottomNameFeatures":false,
-  "reversePCM":false,
+  "reversePCM":true,
   "showPCMname":false
 }
 
