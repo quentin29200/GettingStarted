@@ -169,7 +169,7 @@ We would like to add something about this. We know that we could automate tasks 
       <li>surefire/</li>
     </ul>
     <ul>
-      <li>surefire-reports</li>
+      <li>surefire-reports/</li>
       <ul>
         <li>org.opencompare.MyPCMPrinterTest.txt</li>
         <li>TEST-org.openCompare.MyPCMPrinterTest.xml</li>
@@ -189,7 +189,7 @@ We would like to add something about this. We know that we could automate tasks 
     </ul>
   </ul>
   <ul>
-    getting-started-1.0-SNAPSHOT.jar
+    <li>getting-started-1.0-SNAPSHOT.jar</li>
   </ul>
   <li>.gitignore</li>
   <li>.travis.yml</li>
