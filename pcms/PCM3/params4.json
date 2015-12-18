@@ -1,0 +1,15 @@
+{
+  "dataStyle":[
+    {
+      "name": "Feature2style",
+      "bgcolor": "#58D3F7",
+      "txtcolor": "#58D3F7",
+      "width": 250
+    }
+  ],
+  "orderType":"asc",
+  "orderColumn":"",
+  "showBottomNameFeatures":false,
+  "reversePCM":true,
+  "showPCMname":true
+}

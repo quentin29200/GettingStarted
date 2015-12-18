@@ -1,0 +1,44 @@
+{
+  "dataStyle":[
+    {
+      "name": "Prixstyle",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    },
+    {
+      "name": "modelestyle",
+      "bgcolor": "#3B240B",
+      "txtcolor": "#01DF74"
+    },
+    {
+      "name": "rangein1",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 0,
+      "bornesup": 200
+    },
+    {
+      "name": "rangein2",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 201,
+      "bornesup": 500
+    },
+    {
+      "name": "rangein3",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000",
+      "borneinf": 501,
+      "bornesup": 1000
+    },
+    {
+      "name": "Productstyle",
+      "width": 60
+    }
+  ],
+  "orderType":"desc",
+  "orderColumn":"Prix",
+  "showBottomNameFeatures":true,
+  "reversePCM":false,
+  "showPCMname":true
+}

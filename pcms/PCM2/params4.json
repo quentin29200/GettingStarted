@@ -1,0 +1,35 @@
+{
+  "dataStyle":[
+    {
+      "name": "Languagestyle",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    },
+    {
+      "name": "Inputstyle",
+      "bgcolor": "#58D3F7",
+      "txtcolor": "#F6E3CE"
+    },
+    {
+      "name": "CommentsOtherinfostyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A"
+    },
+    {
+      "name": "Licencestyle",
+      "bgcolor": "#3B240B",
+      "txtcolor": "#01DF74"
+    },
+    {
+      "name": "Outputstyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A",
+      "width": 250
+    }
+  ],
+  "orderType":"asc",
+  "orderColumn":"Product",
+  "showBottomNameFeatures":false,
+  "reversePCM":false,
+  "showPCMname":true
+}

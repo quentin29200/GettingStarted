@@ -1,0 +1,31 @@
+{
+  "dataStyle":[
+    {
+      "name": "Languagestyle",
+      "bgcolor": "#FFFFFF",
+      "txtcolor": "#000000"
+    },
+    {
+      "name": "Inputstyle",
+      "bgcolor": "#3B240B",
+      "txtcolor": "#01DF74"
+    },
+    {
+      "name": "Outputstyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A",
+      "width": 120
+    },
+    {
+      "name": "Productstyle",
+      "bgcolor": "#FE2EF7",
+      "txtcolor": "#122A0A",
+      "width": 300
+    }
+  ],
+  "orderType":"asc",
+  "orderColumn":"Language",
+  "showBottomNameFeatures":false,
+  "reversePCM":true,
+  "showPCMname":true
+}

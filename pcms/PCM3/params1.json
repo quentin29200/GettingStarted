@@ -1,0 +1,22 @@
+{
+  "dataStyle":[
+      {
+        "name": "Feature1style",
+        "bgcolor": "#FE2EF7",
+        "txtcolor": "#122A0A"
+      },
+      {
+        "name": "Feature2style",
+        "bgcolor": "#58D3F7",
+        "txtcolor": "#F6E3CE",
+        "width": 120
+      }
+    ],
+  "orderType":"desc",
+  "orderColumn":"Product",
+  "showBottomNameFeatures":false,
+  "reversePCM":true,
+  "showPCMname":true
+}
+
+

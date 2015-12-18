@@ -1,5 +1,6 @@
 package org.opencompare;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import org.opencompare.api.java.PCM;
 import org.opencompare.api.java.impl.io.KMFJSONLoader;
 import static org.junit.Assert.*;
@@ -8,6 +9,7 @@ import org.opencompare.api.java.io.PCMLoader;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -16,19 +18,25 @@ import java.io.IOException;
 public class MyPCMPrinterTest {
 
     @Test
-    public void testMyPCMPrinter() throws IOException {
+    public  void testMyPCMPrinter() throws IOException {
+        // Load Params
+        Param p = new Param("PCM1\\params1.json");
 
-        // Load a PCM
-        File pcmFile = new File("pcms/example.pcm");
-        PCMLoader loader = new KMFJSONLoader();
-        PCM pcm = loader.load(pcmFile).get(0).getPcm();
-        assertNotNull(pcm);
-
-        // Execute the printer
-        MyPCMPrinter myPrinter = new MyPCMPrinter();
-        myPrinter.print(pcm);
+        // Load PCM
 
 
+            // Load a PCM
+            File pcmFile = new File("pcms/tesssvtttt369852147.pcm");
+            File paramFile = new File("json/param1.json");
+            // read the json file
+            PCMLoader loader = new KMFJSONLoader();
+            PCM pcm = loader.load(pcmFile).get(0).getPcm();
+            assertNotNull(pcm);
+
+            // Execute the printer
+            MyPCMPrinter myPrinter = new MyPCMPrinter();
+            myPrinter.print(pcm);
     }
+
 
 }

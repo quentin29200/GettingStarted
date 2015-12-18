@@ -1,0 +1,13 @@
+{
+  "dataStyle":[
+    {
+      "name": "Wifistyle",
+      "width": 60
+    }
+  ],
+  "orderType":"desc",
+  "orderColumn":"Wifi",
+  "showBottomNameFeatures":true,
+  "reversePCM":true,
+  "showPCMname":false
+}

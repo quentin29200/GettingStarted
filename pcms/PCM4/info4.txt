@@ -1,0 +1,25 @@
+Matrice Opencompare
+    -- Comparison_of_Nikon_DSLR_cameras
+Source : https://opencompare.org/pcm/561cf587975ac7791eb9b609
+
+
+Listes des colonnes :
+    - Product
+    - Image processor
+    - Sensor format
+    - Sensor type
+    - Sensor manufacturing
+    - Megapixel
+    - Focus point
+    - Metering pixels
+    - Viewfinder coverage
+    - Viewfinder magnification
+    - ISO min
+    - ISO max
+    - LCD monitor
+    - Storage media
+    - Live view
+    - Movie mode
+    - Release date
+    - Wifi
+    - GPS

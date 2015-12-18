@@ -1,0 +1,9 @@
+Matrice Opencompare
+    -- Alternative parsers - MediaWiki
+Source : https://opencompare.org/pcm/564b041f975a38f119dadb4f
+
+
+
+===== Product ===== Language ===== Input ===== Comments ===== License ===== Output
+---- Wikiforia ------ Java -------- XML ----- Uses th... ----- GPLv2 ------- Text
+---- HTML2FPDF ------ PHP  ----- PHP class ----- None -------- GPLv2 ------- HTML
