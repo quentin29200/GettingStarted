@@ -5,16 +5,19 @@
 
 Opencompare.org has for objectives to help a community of users to import, edit, view and use array of products in a given domain.
 
-The purpose of this project is to generate, from a comparison matrix template, an HTML representation. This export is highly configurable because we want to handle different graphic aspects of the matrix, for example the ability to:
+The purpose of this project is to generate, an HTML representation, from a comparison matrix template. This export is highly configurable because we want to handle different graphic aspects of the matrix. For example the possibility to:
 * add colors on the headers of the features
 * add colors on certain types of value (color "yes" boolean value in green)
 * reverse the matrix (the products are displayed at the top instead of being displayed on the left side)
  
-In terms of web technology, it uses HTML5, CSS and Javascript. The solutions runs on any devices (cellphones, tablets, computers, etc ...). The procedure takes as input a comparison matrix, some configuration items an generates taticlly a set of HTML, CSS and Javascript files. The result is usable on any browser.
+In terms of web technology, we use HTML5, CSS and Javascript. The solution runs on any devices (cellphones, tablets, computers, etc ...). The procedure takes as input a comparison matrix, some configuration items and generates taticlly a set of HTML, CSS and Javascript files. The result is usable on any browser.
 
 ### 2. Result
+Since the beginning of the project, we developed several things. Indeed, we first created 2 classes : Param and DataStyle. Objects of Param class contains a collection of DataStyle. This class allows us to get the JSON data with text color or background information,  from a JSON file created by us. <u>For one JSON file, there are several DataStyle created owned <b> to </b> this structure</u>. Param also contains attributes to describe the matrix ; if the name of the PCM is shown, or if the features' name are shown. Those classes are used in an other class, CSSExporter - the second point developed, for the generation of css files. CSSExporter also use Genesis librairy.
 
+Thirdly, we developed HTMLExporterCustom, which looks like the HTMLExporter file which already exists in the project. It's used for the generation of HTML file, and the creation of the matrix from OpenCompare. Param class is an attribute in this class. Param put some coloration on the matrix, and on specifics data, and also change the matrix's look. Futhermore, the exportation is working, the CSS file and the HTML file are generated and are put into an archive zip.
 
+Functions had been developed in order to change the matrix's aspect. Now, there is a possibility to reverse the matrix : the products are at the bottom of the matrix, and the features are on the left. The name of the matrix can be show or not. If the matrix is big, the user can show the features at the bottom of it. <u>We can apply a sort by increasing or decreasing order on feature. Still on features, but with products too, functions rangein and rangeout permits to show data in accordance with a gap or with an exact value.</u>
 
 
 ### 3. License
@@ -200,5 +203,5 @@ We would like to add something about this. We know that we could automate tasks 
 </ul>
 
 
-
 ### 6. Deployment instructions
+From the beginning of the project, we were told that, if the project was going well, it could be possible to integrate our work to the OpenCompare project. To do this, it will be necessary to develop an interface which will permits to the user to customize the matrix. It wasn't included in the things asked to this part of the work. When the user will submit his customization, the back-end will have to generate the JSON file corresponding to the parameters. Then, our main will get it and generate the files. The server will juste have to send thoses files to the user.
