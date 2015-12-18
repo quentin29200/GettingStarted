@@ -95,6 +95,16 @@ public class CSSExporter {
             };
             this.getModules().add(CSS_MODULE_TMP);
         }
+        // ajouter la ligne .table-container{overflow-x:scroll;width:90%;height:500px} au css
+
+        CSS_MODULE_TMP = new CssModule() {
+            @Override public void configure(CssBuilder out) {
+                out.addRules(".table-container{overflow-x:scroll;width:90%;height:500px}");
+                //out.addRule(".table-container", Properties.builder().set);
+            }
+        };
+        this.getModules().add(CSS_MODULE_TMP);
+
     }
 
     /**
@@ -121,7 +131,7 @@ public class CSSExporter {
 
     public static void main(String[] args) {
 
-        CSSExporter tmp = new CSSExporter("PCM1\\params1.json");
+        CSSExporter tmp = new CSSExporter("PCM4\\params4.json");
         try {
             tmp.generate();
         }

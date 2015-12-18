@@ -1,3 +1,7 @@
+/**
+ * Javadoc to do
+ */
+
 package org.opencompare;
 
 import java.io.File;
@@ -52,8 +56,8 @@ public class HTMLExporterCustom extends HTMLExporter {
             "<head>\n\t\t<meta charset=\"utf-8\"/>\n\t\t<title></title>\n\t" +
             "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n\t" +
             "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" media=\"screen\" />\n\t" +
-            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t" +
-            "</head>\n\t<body>\n\t</body>\n</html>";
+            "<script src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">\n\t"; //+
+           // "<html></head>\n\t<body>\n\t</body>\n</html>";
     private LinkedList<AbstractFeature> nextFeaturesToVisit;
     private int featureDepth;
     private Param parameters;
@@ -132,8 +136,10 @@ public class HTMLExporterCustom extends HTMLExporter {
             Element title = this.body.appendElement("h1");
             title.attr("id", "title").text(pcm.getName());
         }
-        Element table = this.body.appendElement("table");
-        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table-bordered").addClass("table-hover");
+
+        this.body.appendElement("div").addClass("table-container").addClass("center-block");
+        Element table = this.body.getElementsByTag("div").first().appendElement("table");
+        table.attr("id", "matrix_" + pcm.getName().hashCode()).attr("border", "1").addClass("table").addClass("table-bordered").addClass("table-hover");
         table.appendElement("tbody");
         this.featureDepth = pcm.getFeaturesDepth();
         LinkedList featuresToVisit = new LinkedList();
@@ -756,6 +762,8 @@ public class HTMLExporterCustom extends HTMLExporter {
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
 
+        System.out.println(te.toHTML(pcm));
+
         //Generate the HTML file
         te.generateHTMLFile(pcm);
         //Generate the archive file which contains the CSS & HTML files
@@ -859,15 +867,18 @@ public class HTMLExporterCustom extends HTMLExporter {
             //getting files to zip them
             String fileGeneratedHTMLPath = "src\\HTMLGenerated.html";
             String fileGeneratedCSSPath = "src\\style.css";
+            //String fileGeneratedBootStrapPath = "src\\nameBootstrap.css";
             //getting files size
             int CSSSize = getFileSize(fileGeneratedCSSPath);
             int HTMLSize = getFileSize(fileGeneratedHTMLPath);
+            //int BootStrapSize = getFileSize(fileGeneratedBootStrapPath);
             //System.out.println("Taille CSS : " + CSSSize + "octets, taille HTML : "+HTMLSize + "octets. ");
-            int totalFilesSize = CSSSize + HTMLSize;
+            int totalFilesSize = CSSSize + HTMLSize; //+ BootStrapSize;
 
             //Adding files to archive ZIP
             addToZipFile(fileGeneratedHTMLPath, zos, totalFilesSize);
             addToZipFile(fileGeneratedCSSPath, zos, totalFilesSize);
+            //addToZipFile(fileGeneratedBootStrapPath, zos, totalFilesSize);
 
             //closing the streams
             zos.close();
