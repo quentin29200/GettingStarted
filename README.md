@@ -168,6 +168,13 @@ We would like to add something about this. We know that we could automate tasks 
       </ul>
       <li>surefire/</li>
     </ul>
+    <ul>
+      <li>surefire-reports</li>
+      <ul>
+        <li>org.opencompare.MyPCMPrinterTest.txt</li>
+        <li>TEST-org.openCompare.MyPCMPrinterTest.xml</li>
+      </ul>
+    </ul>
     <li>test-classes/</li>
     <ul>
       <li>org/</li>
@@ -176,9 +183,13 @@ We would like to add something about this. We know that we could automate tasks 
         <ul>
           <li>TestMyPCMPrinter.class</li>
           <li>TestExport.class</li>
+          <li>TestParam.class</li>
         </ul>
       </ul>
     </ul>
+  </ul>
+  <ul>
+    getting-started-1.0-SNAPSHOT.jar
   </ul>
   <li>.gitignore</li>
   <li>.travis.yml</li>
