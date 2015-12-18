@@ -75,21 +75,19 @@ We would like to add something about this. We know that we could automate tasks 
       <li>param2.json</li>
       <li>param3.json</li>
       <li>param4.json</li>
-      <li>style1.css</li>
-      <li>style2.css</li>
-      <li>style3.css</li>
-      <li>style4.css</li>
       <li>comparison-nikon-dslr.pcm</li>
     </ul>
     <li>TEST</li>
     <ul>
       <li>TESTCSS</li>
       <ul>
+        <li>style1.c</li>
         <li>style1.css</li>
         <li>style2.css</li>
         <li>style3.css</li>
         <li>style4.css</li>
       </ul>
+      <li>index1.html</li>
       <li>info1.txt</li>
       <li>param1.json</li>
       <li>param2.json</li>
@@ -113,6 +111,7 @@ We would like to add something about this. We know that we could automate tasks 
             <li>HTMLExporterCustom.java</li>
             <li>MyPCMPrinter.java</li>
             <li>Param.java</li>
+            <li>ProductOrder.java</li>
           </ul>
         </ul>
       </ul>
@@ -133,6 +132,8 @@ We would like to add something about this. We know that we could automate tasks 
       </ul>
     </ul>
     <li>HTMLGenerated.html</li>
+    <li>index.html</li>
+    <li>index2.html</li>
     <li>style.css</li>
   </ul>
   <li>target/</li>
@@ -148,6 +149,7 @@ We would like to add something about this. We know that we could automate tasks 
           <li>HTMLExporterCustom.class</li>
           <li>MyPCMPrinter.class</li>
           <li>Param.class</li>
+          <li>ProductOrder.class</li>
         </ul>
       </ul>
     </ul>
@@ -158,6 +160,13 @@ We would like to add something about this. We know that we could automate tasks 
     <li>generated-test-sources/</li>
     <ul>
       <li>test-annotations/</li>
+    </ul>
+    <ul>
+      <li>maven-archiver/</li>
+      <ul>
+        <li>pom.properties</li>
+      </ul>
+      <li>surefire/</li>
     </ul>
     <li>test-classes/</li>
     <ul>
