@@ -762,7 +762,7 @@ public class HTMLExporterCustom extends HTMLExporter {
 
         HTMLExporterCustom te = new HTMLExporterCustom("PCM4/params4.json");
 
-        System.out.println(te.toHTML(pcm));
+        //System.out.println(te.toHTML(pcm));
 
         //Generate the HTML file
         te.generateHTMLFile(pcm);

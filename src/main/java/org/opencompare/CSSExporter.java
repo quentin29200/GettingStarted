@@ -140,7 +140,7 @@ public class CSSExporter {
         }
         //Print CSS
         String str = tmp.getGenesis().getCss();
-        System.out.println(str);
+        //System.out.println(str);
 
     }
 

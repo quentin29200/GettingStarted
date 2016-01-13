@@ -1,7 +1,5 @@
 @charset 'UTF-8';
-.Storagemediastyle{background:#58d3f7;color:#fff}
-.GPSstyle{width:250px}
-.rangein1{background:#cfc;color:#000}
-.rangein2{background:#4d88ff;color:#fff}
-.compare1{background:#58d3f7;color:#ccc}
+.rangein1{background:#fff;color:#000}
+.rangein2{background:#fff;color:#000}
+.Productstyle{width:250px}
 .table-container{overflow-x:scroll;width:90%;height:500px}
